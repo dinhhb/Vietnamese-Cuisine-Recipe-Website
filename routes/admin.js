@@ -8,8 +8,12 @@ const router = express.Router();
 
 router.get('/dish-management', adminController.getDishManagement);
 
-router.get('/dish-verification', adminController.getDishVerification);
+router.get('/add-dish', adminController.getAddDish);
 
-router.get('/account-management', adminController.getAccountManagement);
+router.post('/add-dish', adminController.postAddDish);
+
+router.get('/edit-dish/:dishId', adminController.getEditDish);
+
+router.post('/edit-dish', adminController.postEditDish);
 
 module.exports = router;

@@ -13,6 +13,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(mainPageRoutes);
-app.use(adminRoutes);
+app.use('/admin', adminRoutes);
 
 app.listen(3000);

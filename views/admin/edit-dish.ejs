@@ -19,85 +19,63 @@
                                         <div class="card-body">
                                             <!-- <h5>Form controls</h5>
                                             <hr> -->
-                                            <form>
+                                            <form action="/admin/<% if (editing) { %>edit-dish<% } else { %>add-dish<% } %>" method="POST">
                                                 <div class="row">
                                                     
-                                                    <!-- <div class="col-md-6">
-                                                        <form>
-                                                            <div class="form-group">
-                                                                <label for="exampleInputEmail1">Email address</label>
-                                                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                                                                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="exampleInputPassword1">Password</label>
-                                                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                                                            </div>
-                                                            <div class="form-group form-check">
-                                                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                                                            </div>
-                                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                                        </form>
-                                                    </div> -->
                                                     <div class="col-md-6">
                                         
                                                             <div class="form-group">
                                                                 <label>Tên món ăn</label>
-                                                                <input type="text" class="form-control" placeholder="phở">
+                                                                <input type="text" name="name" class="form-control" placeholder="phở" value="<% if (editing) { %><%= dish.name %><% } %>">
                                                             </div>
-                                                            <!-- <div class="form-group">
-                                                                <label for="exampleFormControlSelect1">Loại món</label>
-                                                                <select class="form-control" id="exampleFormControlSelect1">
-                                                                    <option>Món mặn</option>
-                                                                    <option>Món ngọt</option>
-                                                                    <option>Món nước</option>
-                                                                    <option>Món tráng miệng</option>
-                                                                </select>
-                                                            </div> -->
                                                             <div class="form-group">
                                                                 <% for (let i = 0; i < 15; i++) { %>
-                                                                    <label>Nguyên liệu <%= i + 1  %></label>
-                                                                    <input type="text" class="form-control" placeholder="Định dạng: 'Số lượng,Đơn vị,Nguyên liệu'">
+                                                                    <label>Nguyên liệu <%= i + 1 %></label>
+                                                                    <input type="text" name="ingredient[]" class="form-control" placeholder="Định dạng: 'Số lượng,Đơn vị,Nguyên liệu'" value="<% if (editing) { %><%= dish.ingredients[i] || '' %><% } %>">
                                                                 <% } %>
                                                             </div>
+                                                            
                                                             <div class="form-group">
                                                                 <label for="exampleFormControlTextarea1">Yêu cầu cảm quan</label>
-                                                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                                                <textarea class="form-control" name="requirement" id="exampleFormControlTextarea1" rows="3">
+                                                                    <% if (editing) { %>
+                                                                        <%= dish.requirement %>
+                                                                    <% } %>
+                                                                </textarea>
                                                             </div>
+                                                            
                                         
                                                     </div>
                                                     <div class="col-md-6">
                                                         
                                                             <div class="form-group">
                                                                 <label>URL ảnh</label>
-                                                                <input type="text" class="form-control" placeholder="abc.com">
+                                                                <input type="text" name="image" class="form-control" placeholder="abc.com" value="<% if (editing) { %><%= dish.image %><% } %>">
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="exampleFormControlSelect1">Loại món</label>
-                                                                <select class="form-control" id="exampleFormControlSelect1">
-                                                                    <option>Món mặn</option>
-                                                                    <option>Món ngọt</option>
-                                                                    <option>Món nước</option>
-                                                                    <option>Món tráng miệng</option>
+                                                                <select class="form-control" name="type" id="exampleFormControlSelect1">
+                                                                    <option value="Món mặn" <% if (editing && dish.type === 'Món mặn') { %>selected<% } %>>Món mặn</option>
+                                                                    <option value="Món ngọt" <% if (editing && dish.type === 'Món ngọt') { %>selected<% } %>>Món ngọt</option>
+                                                                    <option value="Món nước" <% if (editing && dish.type === 'Món nước') { %>selected<% } %>>Món nước</option>
+                                                                    <option value="Món tráng miệng" <% if (editing && dish.type === 'Món tráng miệng') { %>selected<% } %>>Món tráng miệng</option>
                                                                 </select>
                                                             </div>
+                                                            
                                                             <div class="form-group">
                                                                 <label>Quy trình chế biến</label>
                                                                 <% for (let i = 0; i < 15; i++) { %>
                                                                     <label>Bước <%= i + 1  %></label>
-                                                                    <input type="text" class="form-control" placeholder="abc">
+                                                                    <input type="text" class="form-control" placeholder="abc" name="step[]" value="<% if (editing) { %><%= dish.steps[i] || '' %><% } %>">
                                                                 <% } %>
                                                             </div>
-                                                            <!-- <div class="form-group">
-                                                                <label for="exampleFormControlTextarea1">Example textarea</label>
-                                                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                                                            </div> -->
-                                                        
                                                     </div>
                                                 </div>
+                                                <% if (editing) { %>
+                                                    <input type="hidden" value="<%= dish.id %>" name="dishId">
+                                                <% } %>
                                                 <div class="text-center"> <!-- Thêm lớp "text-center" để căn giữa -->
-                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                    <button type="submit" class="btn btn-primary"><% if (editing) { %>Sửa món<% } else { %>Thêm món<% } %></button>
                                                 </div>
                                             </form>
                                     </div>

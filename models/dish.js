@@ -19,10 +19,11 @@ const getDishesFromFile = cb => {
 };
 
 module.exports = class Dish {
-  constructor(id, name, image, ingredients, steps, requirement) {
+  constructor(id, name, image, type, ingredients, steps, requirement) {
     this.id = id;
     this.name = name;
     this.image = image;
+    this.type = type;
     this.ingredients = ingredients;
     this.steps = steps;
     this.requirement = requirement;

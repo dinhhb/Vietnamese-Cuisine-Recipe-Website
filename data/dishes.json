@@ -2,25 +2,27 @@
   {
     "id": "12345",
     "name": "Phở",
-    "image": "",
+    "type": "Món nước",
+    "image": "abc",
     "ingredients": "[\"1\",\"2\",\"3\"]",
     "steps": "[\"1.\",\"2.\"]",
     "requirement": "Great"
   },
   {
-    "name": "Nộm rau muống",
-    "image": "C:\\fakepath\\BVP-logo bk-rgb.jpg",
-    "ingredients": "[\"1\",\"2\",\"3\"]",
-    "steps": "[\"4\",\"5\",\"6\"]",
-    "requirement": "wow",
-    "id": "0.867829757864824"
+    "id": "0.8880131739065462",
+    "name": "",
+    "image": "",
+    "type": "Món mặn",
+    "ingredients": ["1", "2"],
+    "requirement": ""
   },
   {
-    "id": "0.6688397263853918",
-    "name": "Canh cá",
-    "image": "",
-    "ingredients": "[\"1\",\"2\",\"3\",\"3\",\"3\",\"3\"]",
-    "steps": "[\"1\",\"2\"]",
-    "requirement": "wow"
+    "id": "0.5843226495443559",
+    "name": "phử",
+    "image": "1fds",
+    "type": "Món mặn",
+    "ingredients": ["1", "2", "3"],
+    "steps": ["4", "5", "6"],
+    "requirement": "sdfdf"
   }
 ]
