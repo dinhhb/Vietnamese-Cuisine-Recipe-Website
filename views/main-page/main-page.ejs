@@ -1,0 +1,207 @@
+<%- include('includes/head.ejs') %>
+
+	<!-- Start slides -->
+	<div id="slides" class="cover-slides">
+		<ul class="slides-container">
+			<li class="text-center">
+				<img src="/images/slider-01.jpg" alt="">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12">
+							<h1 class="m-b-20"><strong>Chào mừng đến với<br> Ẩm thực Việt</strong></h1>
+							<p class="m-b-40">Tinh hoa ẩm thực. Con người Việt Nam.</p>
+							<p><a class="btn btn-lg btn-circle btn-outline-new-white" href="#menu">Khám phá ngay</a></p>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li class="text-center">
+				<img src="/images/slider-02.jpg" alt="">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12">
+							<h1 class="m-b-20"><strong>Chào mừng đến với<br> Ẩm thực Việt</strong></h1>
+							<p class="m-b-40">Gửi gắm tình yêu vào từng món ăn.</p>
+							<p><a class="btn btn-lg btn-circle btn-outline-new-white" href="#menu">Khám phá ngay</a></p>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li class="text-center">
+				<img src="/images/slider-03.jpg" alt="">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12">
+							<h1 class="m-b-20"><strong>Chào mừng đến với<br> Ẩm thực Việt</strong></h1>
+							<p class="m-b-40">Món ăn gia đình, ngon như ở nhà.</p>
+							<p><a class="btn btn-lg btn-circle btn-outline-new-white" href="#menu">Khám phá ngay</a></p>
+						</div>
+					</div>
+				</div>
+			</li>
+		</ul>
+		<div class="slides-navigation">
+			<a href="#" class="next"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+			<a href="#" class="prev"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+		</div>
+	</div>
+	<!-- End slides -->
+	
+	<!-- Start About -->
+	<div id="about" class="about-section-box">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-6 col-sm-12">
+					<img src="/images/about-img.png" alt="" class="img-fluid">
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-12 text-center">
+					<div class="inner-column">
+						<h1>Chào mừng tới <span>Ẩm thực Việt</span></h1>
+						<!-- <h4>Little Story</h4> -->
+						<p>Ẩm thực Việt Nam luôn là đề tài thú vị khi nhắc đến Việt Nam, không chỉ phong phú món ăn và đa dạng công thức chế biến, ẩm thực còn thể hiện nhân sinh quan của con người cùng điều kiện tự nhiên đặc trưng của vùng khí hậu nhiệt đới.</p>
+						<p>Ẩm Thực Việt Nam là cách gọi của nguyên lý pha trộn gia vị, phương thức chế biến và những thói quen ăn uống nói chung của người Việt và các dân tộc thuộc Việt trên đất nước Việt Nam. Tuy có nhiều sự khác biệt nhưng vẫn bao hàm ý nghĩa khái quát nhất để chỉ tất cả những món ăn phổ biến trong cộng đồng các dân tộc thiểu số nhưng vẫn tương đối phổ thông trong cộng đồng người Việt.</p>
+						<a class="btn btn-lg btn-circle btn-outline-new-white" href="#menu">Khám phá ngay</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End About -->
+	
+	<!-- Start QT -->
+	<!-- <div class="qt-box qt-background">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 ml-auto mr-auto text-center">
+					<p class="lead ">
+						"Nấu cho mình, cho người và cho đời thêm vui"
+					</p> -->
+					<!-- <span class="lead">Michael Strahan</span> -->
+				<!-- </div>
+			</div>
+		</div>
+	</div> -->
+	<!-- End QT -->
+	
+	<!-- Start Menu -->
+	<div id="menu" class="menu-box">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="heading-title text-center">
+						<h2>THỰC ĐƠN</h2>
+						<div class="blog-search-form">
+							<input name="search" placeholder="Bạn cần tìm gì?" type="text">
+							<button class="search-btn">
+								<i class="fa fa-search" aria-hidden="true"></i>
+							</button>
+						</div>
+						<!-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting</p> -->
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="special-menu text-center">
+						<div class="button-group filter-button-group">
+							<button class="active" data-filter="*">Tất cả</button>
+							<button data-filter=".lunch">Món mặn</button>
+							<button data-filter=".lunch">Món ngọt</button>
+							<button data-filter=".dinner">Món nước</button>
+							<button data-filter=".dinner">Món tráng miệng</button>
+						</div>
+					</div>
+				</div>
+			</div>
+				
+			<% if (dishes1.length > 0) { %>
+				<% for (let i = 0; i < dishes1.length; i++) { %>
+				  <% if (i % 3 === 0) { %>
+					<div class="row">
+				  <% } %>
+				  <div class="col-lg-4 col-md-6 special-grid drinks" onclick="window.location.href = '/dishes/<%= dishes1[i].id %>'">
+					<div class="gallery-single fix">
+					  
+						<form action="/liked-dish" method="post">
+							<button class="heart-btn" type="submit"><i class="fa-solid fa-heart"></i></button>
+							<input type="hidden" name="dishId" value="<%= dishes1[i].id  %>">
+						</form>
+
+					  <img src="/images/img-01.jpg" class="img-fluid" alt="Image">
+					  <!-- <img src="<%= dishes1[i].image %>" class="img-fluid" alt="Image"> -->
+					  <div class="why-text">
+						<h4><%= dishes1[i].name %></h4>
+						<!-- <p>Phở bò là món ăn yêu thích của người Hà Nội</p> -->
+						<h5>Admin</h5>
+					  </div>
+					</div>
+				  </div>
+				  <% if (i % 3 === 2 || i === dishes1.length - 1) { %>
+					</div>
+				  <% } %>
+				<% } %>
+			<% } else { %>
+				<h1>Không tìm thấy món ăn!</h1>
+			<% } %>	
+
+		</div>
+	</div>
+	<!-- End Menu -->
+	
+	<!-- Start Customer Reviews -->
+	<!-- <div class="customer-reviews-box">
+		<div class="container">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="heading-title text-center">
+						<h2>Nhận xét</h2>
+						<p>Một số nhận xét của người nước ngoài về ẩm thực Việt Nam</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-8 mr-auto ml-auto text-center">
+					<div id="reviews" class="carousel slide" data-ride="carousel">
+						<div class="carousel-inner mt-4">
+							<div class="carousel-item text-center active">
+								<div class="img-box p-1 border rounded-circle m-auto">
+									<img class="d-block w-100 rounded-circle" src="/images/profile-1.jpg" alt="">
+								</div>
+								<h5 class="mt-4 mb-0"><strong class="text-warning text-uppercase">Gordon Ramsay</strong></h5>
+								<h6 class="text-dark m-0">Đầu bếp</h6>
+								<p class="m-0 pt-3">May mắn tôi không sinh ra ở Việt Nam, nếu không tôi chỉ là một đầu bếp tồi.</p>
+							</div>
+							<div class="carousel-item text-center">
+								<div class="img-box p-1 border rounded-circle m-auto">
+									<img class="d-block w-100 rounded-circle" src="/images/profile-2.jpg" alt="">
+								</div>
+								<h5 class="mt-4 mb-0"><strong class="text-warning text-uppercase">Barack Obama</strong></h5>
+								<h6 class="text-dark m-0">Cựu Tổng thống Mỹ</h6>
+								<p class="m-0 pt-3">Chiếc ghế nhựa thấp, món bún rẻ nhưng ngon tuyệt, bia Hà Nội mát lạnh.</p>
+							</div>
+							<div class="carousel-item text-center">
+								<div class="img-box p-1 border rounded-circle m-auto">
+									<img class="d-block w-100 rounded-circle" src="/images/profile-3.jpg" alt="">
+								</div>
+								<h5 class="mt-4 mb-0"><strong class="text-warning text-uppercase">Anthony Bourdain</strong></h5>
+								<h6 class="text-dark m-0">Đầu bếp</h6>
+								<p class="m-0 pt-3">Bún bò Huế là loại súp số 1 thế giới.</p>
+							</div>
+						</div>
+						<a class="carousel-control-prev" href="#reviews" role="button" data-slide="prev">
+							<i class="fa fa-angle-left" aria-hidden="true"></i>
+							<span class="sr-only">Previous</span>
+						</a>
+						<a class="carousel-control-next" href="#reviews" role="button" data-slide="next">
+							<i class="fa fa-angle-right" aria-hidden="true"></i>
+							<span class="sr-only">Next</span>
+						</a>
+                    </div>
+				</div>
+			</div>
+		</div>
+	</div> -->
+	<!-- End Customer Reviews -->
+	
+	<%- include('includes/end.ejs') %>

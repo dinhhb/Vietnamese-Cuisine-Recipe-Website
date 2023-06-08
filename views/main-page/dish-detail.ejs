@@ -1,0 +1,231 @@
+<%- include('includes/head.ejs') %>
+	
+	<!-- Start blog details -->
+	<div class="blog-box ">
+		<div class="container " style='margin-top: 80px'>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="heading-title text-uppercase">
+						<h2><%= dish1.name  %></h2>
+						<!-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting</p> -->
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xl-8 col-lg-8 col-12">
+					<div class="blog-inner-details-page">
+						<div class="blog-inner-box">
+							<div class="side-blog-img">
+								<!-- <img class="img-fluid" src="<%= dish1.image %>" alt="">							 -->
+								<img class="img-fluid" src="/images/food-1.jpg" alt="">							
+								<!-- <div class="date-blog-up">
+									27 Fab
+								</div> -->
+							</div>
+							<div class="posted-by"><ul>
+								<li><i class="zmdi zmdi-account"></i>Đăng bởi:<a href="/profile"> <label>admin</label></li>
+								<!-- <li>|</li> -->
+								<!-- <li><i class="zmdi zmdi-time"></i>Time : <span>11.30 am</span></li> -->
+							</ul></div>
+							<% for (let step of stepsArray) { %>
+								<p><%= step %></p>
+							<% } %>
+								<!-- <blockquote>
+									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non feugiat lacus. Nunc nisi velit, consectetur vitae ex porttitor, placerat scelerisque mauris. Phasellus sit amet tincidunt metus, quis tempus ex. Quisque in lorem ut mi ullamcorper suscipit eu nec purus. Nam maximus sagittis iaculis.</p>
+								</blockquote> -->
+								<h3>Yêu cầu cảm quan.</h3>
+								<blockquote>
+									<p><%= dish1.requirement  %></p>
+								</blockquote>
+							</div>
+						</div>
+						<div class="blog-comment-box">
+							<h3>Đánh giá</h3>
+							<div class="comment-item">
+								<div class="comment-item-left">
+									<img src="/images/avt-img.jpg" alt="">
+								</div>
+								<div class="comment-item-right">
+									<div class="pull-left">
+										<a href="#">Rubel Ahmed</a>
+									</div>
+									<div class="pull-right">
+										<i class="fa fa-clock-o" aria-hidden="true"></i>Time : <span>11.30 am</span>
+									</div>
+									<div class="des-l">
+										<p>Morbi lacinia ultrices lorem id tincidunt. Cras id dui risus. Pellentesque consectetur id mi sed pharetra. Proin imperdiet gravida nisl, sit amet varius urna. In auctor.</p>
+									</div>
+									<a href="#" class="right-btn-re"><i class="fa fa-reply" aria-hidden="true"></i> Reply</a>
+								</div>
+							</div>
+							<div class="comment-item children">
+								<div class="comment-item-left">
+									<img src="/images/avt-img.jpg" alt="">
+								</div>
+								<div class="comment-item-right">
+									<div class="pull-left">
+										<a href="#">Admin</a>
+									</div>
+									<div class="pull-right">
+										<i class="fa fa-clock-o" aria-hidden="true"></i>Time : <span>1.30 pm</span>
+									</div>
+									<div class="des-l">
+										<p>Morbi lacinia ultrices lorem id tincidunt. Cras id dui risus. Pellentesque consectetur id mi sed pharetra. Proin imperdiet gravida nisl, sit amet varius urna. In auctor.</p>
+									</div>
+									<a href="#" class="right-btn-re"><i class="fa fa-reply" aria-hidden="true"></i> Reply</a>
+								</div>
+							</div>
+							<div class="comment-item">
+								<div class="comment-item-left">
+									<img src="/images/avt-img.jpg" alt="">
+								</div>
+								<div class="comment-item-right">
+									<div class="pull-left">
+										<a href="#">Rubel Ahmed</a>
+									</div>
+									<div class="pull-right">
+										<i class="fa fa-clock-o" aria-hidden="true"></i>Time : <span>11.30 am</span>
+									</div>
+									<div class="des-l">
+										<p>Morbi lacinia ultrices lorem id tincidunt. Cras id dui risus. Pellentesque consectetur id mi sed pharetra. Proin imperdiet gravida nisl, sit amet varius urna. In auctor.</p>
+									</div>
+									<a href="#" class="right-btn-re"><i class="fa fa-reply" aria-hidden="true"></i> Reply</a>
+								</div>
+							</div>
+						</div>
+						<div class="comment-respond-box">
+							<h3>Hãy để lại đánh giá của bạn </h3>
+							<div class="comment-respond-form">
+								<form id="commentrespondform" class="comment-form-respond row" method="post">
+									<!-- <div class="col-lg-6 col-md-6 col-sm-6">
+										<div class="form-group">
+											<input id="name_com" class="form-control" name="name" placeholder="Tên" type="text">
+										</div> -->
+										<!-- <div class="form-group">
+											<input id="email_com" class="form-control" name="email" placeholder="Your Email" type="email">
+										</div> -->
+									<!-- </div> -->
+									<div class="col-lg-12 col-md-12 col-sm-12">
+										<div class="form-group">
+											<textarea class="form-control" id="textarea_com" placeholder="Bạn nghĩ gì về công thức này? Bạn có muốn thay đổi gì không?" rows="2"></textarea>
+										</div>
+									</div>
+									<div class="col-lg-12 col-md-12 col-sm-12">
+										<button class="btn btn-submit">Gửi đánh giá</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+				<div class="col-xl-4 col-lg-4 col-md-6 col-sm-8 col-12 blog-sidebar">
+					<div class="right-side-blog">
+						<!-- <h3>Search</h3>
+						<div class="blog-search-form">
+							<input name="search" placeholder="Search blog" type="text">
+							<button class="search-btn">
+								<i class="fa fa-search" aria-hidden="true"></i>
+							</button>
+						</div> -->
+						<h3>Nguyên liệu</h3>
+						<div class="blog-categories">
+							<ul>
+								<!-- <li><a href="#"><span>Rau muống trắng 500g</span></a></li>
+								<li><a href="#"><span>Giá đỗ 200g</span></a></li>
+								<li><a href="#"><span>Ốt tươi 2 quả</span></a></li>
+								<li><a href="#"><span>Mỡ nước 10g</span></a></li>
+								<li><a href="#"><span>Tai lợn 200g</span></a></li>
+								<li><a href="#"><span>Nước mắm</span></a></li>
+								<li><a href="#"><span>Tai lợn</span></a></li>
+								<li><a href="#"><span>Mì chính</span></a></li>
+								<li><a href="#"><span>Vừng 50g</span></a></li>
+								<li><a href="#"><span>Tỉnh dầu cà cuống</span></a></li>
+								<li><a href="#"><span>Lạc 80g</span></a></li>
+								<li><a href="#"><span>Rau thơm</span></a></li>
+								<li><a href="#"><span>Đường 10g</span></a></li>
+								<li><a href="#"><span>Rau mùi</span></a></li>
+								<li><a href="#"><span>Chanh to 2 quả</span></a></li> -->
+								<% for (let ingredient of ingredientsArray) { %>
+									<li><a href="#"><span><%= ingredient  %></span></a></li>
+								<% } %>
+							</ul>
+						</div>
+						<h3>Có thể bạn quan tâm</h3>
+						<div class="post-box-blog">
+							<div class="recent-post-box">
+								<div class="recent-box-blog">
+									<div class="recent-img">
+										<img class="img-fluid" src="images/post-img-01.jpg" alt="">
+									</div>
+									<div class="recent-info">
+										<ul>
+											<li><i class="zmdi zmdi-account"></i>Posted By : <span>Rubel Ahmed</span></li>
+											<li>|</li>
+											<li><i class="zmdi zmdi-time"></i>Time : <span>11.30 am</span></li>
+										</ul>
+										<h4>Duis feugiat neque sed dolor cursus, sed lacinia nisl pretium.</h4>
+									</div>
+								</div>
+								<div class="recent-box-blog">
+									<div class="recent-img">
+										<img class="img-fluid" src="images/post-img-02.jpg" alt="">
+									</div>
+									<div class="recent-info">
+										<ul>
+											<li><i class="zmdi zmdi-account"></i>Posted By : <span>Rubel Ahmed</span></li>
+											<li>|</li>
+											<li><i class="zmdi zmdi-time"></i>Time : <span>11.30 am</span></li>
+										</ul>
+										<h4>Duis feugiat neque sed dolor cursus, sed lacinia nisl pretium.</h4>
+									</div>
+								</div>
+								<div class="recent-box-blog">
+									<div class="recent-img">
+										<img class="img-fluid" src="images/post-img-03.jpg" alt="">
+									</div>
+									<div class="recent-info">
+										<ul>
+											<li><i class="zmdi zmdi-account"></i>Posted By : <span>Rubel Ahmed</span></li>
+											<li>|</li>
+											<li><i class="zmdi zmdi-time"></i>Time : <span>11.30 am</span></li>
+										</ul>
+										<h4>Duis feugiat neque sed dolor cursus, sed lacinia nisl pretium.</h4>
+									</div>
+								</div>
+								<div class="recent-box-blog">
+									<div class="recent-img">
+										<img class="img-fluid" src="images/post-img-01.jpg" alt="">
+									</div>
+									<div class="recent-info">
+										<ul>
+											<li><i class="zmdi zmdi-account"></i>Posted By : <span>Rubel Ahmed</span></li>
+											<li>|</li>
+											<li><i class="zmdi zmdi-time"></i>Time : <span>11.30 am</span></li>
+										</ul>
+										<h4>Duis feugiat neque sed dolor cursus, sed lacinia nisl pretium.</h4>
+									</div>
+								</div>
+							</div>
+						</div>
+						<h3>Recent Tag</h3>
+						<div class="blog-tag-box">
+							<ul class="list-inline tag-list">
+								<li class="list-inline-item"><a href="#">Food</a></li>
+								<li class="list-inline-item"><a href="#">Drink</a></li>
+								<li class="list-inline-item"><a href="#">Nature</a></li>
+								<li class="list-inline-item"><a href="#">Italian</a></li>
+								<li class="list-inline-item"><a href="#">Bootstrap4</a></li>
+								<li class="list-inline-item"><a href="#">Fashion</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			
+			</div>
+		</div>
+	</div>
+	<!-- End details -->
+	
+	
+        <%- include('includes/end.ejs') %>

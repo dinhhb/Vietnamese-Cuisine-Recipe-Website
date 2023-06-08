@@ -1,0 +1,84 @@
+<%- include('includes/head.ejs') %>
+    
+    <%- include('includes/navigation.ejs') %>
+
+    <!-- [ Main Content ] start -->
+    <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+            <div class="pcoded-content">
+                <div class="pcoded-inner-content">
+                    <!-- [ breadcrumb ] start -->
+
+                    <!-- [ breadcrumb ] end -->
+                    <div class="main-body">
+                        <div class="page-wrapper">
+                            <!-- [ Main Content ] start -->
+                            <div class="">
+                                
+                                <!--[ Recent Users ] start-->
+                                <div class="">
+                                    <div class="card Recent-Users">
+                                        <div class="card-header">
+                                            <h5>Quản lý món ăn</h5>
+                                        </div>
+                                        <div class="card-block px-0 py-3">
+                                            <div class="table-responsive">
+                                                <table class="table table-hover">
+                                                    <tbody>
+                                                        <% if (dishes1.length > 0) { %>
+                                                            <% let count = 1; %>
+                                                            <% for (let dish of dishes1) { %>
+                                                                <tr class="unread">
+                                                                    <td class="mb-1"><%= count %></td>
+                                                                    <!-- <td><img class="rounded-circle" style="width:40px;" src="/images/admin/user/avatar-1.jpg" alt="activity-user"></td> -->
+                                                                    <td>
+                                                                        <h6 class="mb-1"><%= dish.name %></h6>
+                                                                        <!-- <p class="m-0">Lorem Ipsum is simply…</p> -->
+                                                                    </td>
+                                                                    <td>admin</td>
+                                                                    <!-- <td>
+                                                                        <h6 class="text-muted"><i class="fas fa-circle text-c-green f-10 m-r-15"></i>11 MAY 12:56</h6>
+                                                                    </td> -->
+                                                                    <td class="text-right">
+                                                                        <a href="" class="label theme-bg text-white f-12">Xem</a>
+                                                                        <a href="/admin/edit-dish" class="label theme-bg2 text-white f-12">Sửa</a>
+                                                                        <form action="" method="post" style="display: inline;">
+                                                                            <button type="submit" class="label bg-danger text-white f-12">Xoá</button>
+                                                                        </form>                                                                    
+                                                                    </td>                                                                
+                                                                </tr>
+                                                                <% count++; %>
+                                                            <% } %>
+                                                        <% } %>
+                                                        
+                                                        <!-- <tr class="unread">
+                                                            <td><img class="rounded-circle" style="width:40px;" src="/images/admin/user/avatar-2.jpg" alt="activity-user"></td>
+                                                            <td>
+                                                                <h6 class="mb-1">Mathilde Andersen</h6> -->
+                                                                <!-- <p class="m-0">Lorem Ipsum is simply text of…</p> -->
+                                                            </td>
+                                                            <!-- <td>
+                                                                <h6 class="text-muted"><i class="fas fa-circle text-c-red f-10 m-r-15"></i>11 MAY 10:35</h6>
+                                                            </td> -->
+                                                            <!-- <td><a href="#!" class="label theme-bg2 text-white f-12">Xóa</a><a href="../add-form/index.html" class="label theme-bg text-white f-12">Sửa</a></td>
+                                                        </tr> -->
+                                                        
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--[ Recent Users ] end-->
+
+                                
+                            <!-- [ Main Content ] end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- [ Main Content ] end -->
+
+    <%- include('includes/end.ejs') %>
