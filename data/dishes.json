@@ -1,14 +1,14 @@
 [
   {
     "id": "12345",
-    "name": "ty",
+    "name": "Phở",
     "image": "",
     "ingredients": "[\"1\",\"2\",\"3\"]",
-    "steps": "[\"\"]",
-    "requirement": "gfdgd"
+    "steps": "[\"1.\",\"2.\"]",
+    "requirement": "Great"
   },
   {
-    "name": "pho",
+    "name": "Nộm rau muống",
     "image": "C:\\fakepath\\BVP-logo bk-rgb.jpg",
     "ingredients": "[\"1\",\"2\",\"3\"]",
     "steps": "[\"4\",\"5\",\"6\"]",
@@ -17,10 +17,10 @@
   },
   {
     "id": "0.6688397263853918",
-    "name": "pho",
+    "name": "Canh cá",
     "image": "",
     "ingredients": "[\"1\",\"2\",\"3\",\"3\",\"3\",\"3\"]",
-    "steps": "[\"\"]",
+    "steps": "[\"1\",\"2\"]",
     "requirement": "wow"
   }
 ]
