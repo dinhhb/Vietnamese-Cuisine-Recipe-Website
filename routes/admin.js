@@ -16,4 +16,6 @@ router.get('/edit-dish/:dishId', adminController.getEditDish);
 
 router.post('/edit-dish', adminController.postEditDish);
 
+router.get('/statistic', adminController.getStatistic);
+
 module.exports = router;

@@ -7244,6 +7244,7 @@ select.form-control-lg:not([size]):not([multiple]) {
 ==========================  **/
 .label {
   padding: 4px 10px;
+  border-radius: 15px;
   min-height: auto;
   position: relative;
   margin-right: 5px;

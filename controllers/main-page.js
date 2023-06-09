@@ -17,10 +17,8 @@ exports.getDish = (req, res, next) => {
     Dish.findById(dishId1, dish => {
         res.render('main-page/dish-detail', {
             // pageTitle: 'Shop',
-            dish1: dish,
-            path: '/dish-detail',
-            ingredientsArray: JSON.parse(dish.ingredients),
-            stepsArray: JSON.parse(dish.steps)
+            dish: dish,
+            path: '/dish-detail'
         })      
     });
 };

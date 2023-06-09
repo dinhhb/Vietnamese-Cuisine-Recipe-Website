@@ -17,57 +17,79 @@
                                 
                                 <!--[ Recent Users ] start-->
                                 <div class="">
-                                    <div class="card Recent-Users">
-                                        <div class="card-header">
-                                            <h5>Quản lý món ăn</h5>
-                                        </div>
-                                        <div class="card-block px-0 py-3">
-                                            <div class="table-responsive">
-                                                <table class="table table-hover">
-                                                    <tbody>
-                                                        <% if (dishes1.length > 0) { %>
-                                                            <% let count = 1; %>
-                                                            <% for (let dish of dishes1) { %>
-                                                                <tr class="unread">
-                                                                    <td class="mb-1"><%= count %></td>
-                                                                    <!-- <td><img class="rounded-circle" style="width:40px;" src="/images/admin/user/avatar-1.jpg" alt="activity-user"></td> -->
-                                                                    <td>
-                                                                        <h6 class="mb-1"><%= dish.name %></h6>
-                                                                        <!-- <p class="m-0">Lorem Ipsum is simply…</p> -->
-                                                                    </td>
-                                                                    <td>admin</td>
-                                                                    <!-- <td>
-                                                                        <h6 class="text-muted"><i class="fas fa-circle text-c-green f-10 m-r-15"></i>11 MAY 12:56</h6>
-                                                                    </td> -->
-                                                                    <td class="text-right">
-                                                                        <a href="" class="label theme-bg text-white f-12">Xem</a>
-                                                                        <a href="/admin/edit-dish" class="label theme-bg2 text-white f-12">Sửa</a>
-                                                                        <form action="" method="post" style="display: inline;">
-                                                                            <button type="submit" class="label bg-danger text-white f-12">Xoá</button>
-                                                                        </form>                                                                    
-                                                                    </td>                                                                
-                                                                </tr>
-                                                                <% count++; %>
+                                    <div class="col-sm-12">
+                                        <h5>Quản lý món ăn</h5>
+                                        <hr>
+                                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active text-uppercase" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Món mặn</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link text-uppercase" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Món ngọt</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link text-uppercase" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Món canh</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link text-uppercase" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Món tráng miệng</a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content" id="myTabContent">
+                                            <div class="card-block px-0 py-3">
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover">
+                                                        <tbody>
+                                                            <% if (dishes.length > 0) { %>
+                                                                <% let count = 1; %>
+                                                                <% for (let dish of dishes) { %>
+                                                                    <tr class="unread">
+                                                                        <td class="mb-1"><%= count %></td>
+                                                                        <!-- <td><img class="rounded-circle" style="width:40px;" src="/images/admin/user/avatar-1.jpg" alt="activity-user"></td> -->
+                                                                        <td>
+                                                                            <h6 class="mb-1"><%= dish.name %></h6>
+                                                                            <!-- <p class="m-0">Lorem Ipsum is simply…</p> -->
+                                                                        </td>
+                                                                        <td>admin</td>
+                                                                        <!-- <td>
+                                                                            <h6 class="text-muted"><i class="fas fa-circle text-c-green f-10 m-r-15"></i>11 MAY 12:56</h6>
+                                                                        </td> -->
+                                                                        <td class="text-right">
+                                                                            <a href="/dishes/<%= dish.id  %>" class="label theme-bg text-white f-12">Xem</a>
+                                                                            <a href="/admin/edit-dish/<%= dish.id  %>?edit=true" class="label theme-bg2 text-white f-12">Sửa</a>
+                                                                            <form action="" method="post" style="display: inline;">
+                                                                                <button type="submit" class="label bg-danger text-white f-12">Xoá</button>
+                                                                            </form>                                                                    
+                                                                        </td>                                                                
+                                                                    </tr>
+                                                                    <% count++; %>
+                                                                <% } %>
                                                             <% } %>
-                                                        <% } %>
-                                                        
-                                                        <!-- <tr class="unread">
-                                                            <td><img class="rounded-circle" style="width:40px;" src="/images/admin/user/avatar-2.jpg" alt="activity-user"></td>
-                                                            <td>
-                                                                <h6 class="mb-1">Mathilde Andersen</h6> -->
-                                                                <!-- <p class="m-0">Lorem Ipsum is simply text of…</p> -->
-                                                            </td>
-                                                            <!-- <td>
-                                                                <h6 class="text-muted"><i class="fas fa-circle text-c-red f-10 m-r-15"></i>11 MAY 10:35</h6>
-                                                            </td> -->
-                                                            <!-- <td><a href="#!" class="label theme-bg2 text-white f-12">Xóa</a><a href="../add-form/index.html" class="label theme-bg text-white f-12">Sửa</a></td>
-                                                        </tr> -->
-                                                        
-                                                    </tbody>
-                                                </table>
+                                                            
+                                                            <!-- <tr class="unread">
+                                                                <td><img class="rounded-circle" style="width:40px;" src="/images/admin/user/avatar-2.jpg" alt="activity-user"></td>
+                                                                <td>
+                                                                    <h6 class="mb-1">Mathilde Andersen</h6> -->
+                                                                    <!-- <p class="m-0">Lorem Ipsum is simply text of…</p> -->
+                                                                </td>
+                                                                <!-- <td>
+                                                                    <h6 class="text-muted"><i class="fas fa-circle text-c-red f-10 m-r-15"></i>11 MAY 10:35</h6>
+                                                                </td> -->
+                                                                <!-- <td><a href="#!" class="label theme-bg2 text-white f-12">Xóa</a><a href="../add-form/index.html" class="label theme-bg text-white f-12">Sửa</a></td>
+                                                            </tr> -->
+                                                            
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
+                                            <!-- <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                                <p class="mb-0">Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+                                            </div>
+                                            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                                                <p class="mb-0">Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.</p>
+                                            </div> -->
                                         </div>
                                     </div>
+                                    
                                 </div>
                                 <!--[ Recent Users ] end-->
 
