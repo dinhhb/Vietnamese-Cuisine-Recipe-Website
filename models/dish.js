@@ -1,6 +1,8 @@
 const fs = require("fs");
 const path = require("path");
 
+const FavoriteDish = require('./favorite-dish');
+
 const p = path.join(
     path.dirname(process.mainModule.filename),
     "data",
@@ -57,7 +59,7 @@ module.exports = class Dish {
       const updatedDishes = dishes.filter(dish => dish.id !== id);
       fs.writeFile(p, JSON.stringify(updatedDishes), err => {
         if (!err) {
-          
+          FavoriteDish.deleteDish(id);
         }
       })
     })

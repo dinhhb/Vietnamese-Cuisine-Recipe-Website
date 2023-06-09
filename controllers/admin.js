@@ -80,5 +80,7 @@ exports.getStatistic = (req, res, next) => {
 }
 
 exports.postDeleteDish = (req, res, next) => {
-    
+    const dishId = req.body.dishId;
+    Dish.deleteById(dishId);
+    res.redirect('/admin/dish-management')
 }

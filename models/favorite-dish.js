@@ -20,19 +20,39 @@ module.exports = class favoriteDish{
             const existingDish = favoriteDish.dishes[existingDishIndex];
             let updatedDish;
 
-            // thêm món ăn đã thích mới/ tăng số lượng 
-            if (existingDish){
-                updatedDish = { ...existingDish };
-                updatedDish.qty = updatedDish.qty + 1;
-                favoriteDish.dishes = [...favoriteDish.dishes];
-                favoriteDish.dishes[existingDishIndex] = updatedDish;
-            } else {
-                updatedDish = { id: id, qty: 1};
+            if (!existingDish){
+                updatedDish = { id: id};
                 favoriteDish.dishes = [...favoriteDish.dishes, updatedDish];
-            }
+            } 
             fs.writeFile(p, JSON.stringify(favoriteDish), err => {
                 console.log(err);
             })
         });
     }
-}
+
+    static deleteDish(id){
+        fs.readFile(p, (err, fileContent) => {
+            if (err){
+                return;
+            }
+            const updatedFavoriteDish = { ...JSON.parse(fileContent) };
+            // const dish = updatedFavoriteDish.dishes.find(dish => dish.id === id);
+            // const dishQty = dish.qty;
+            updatedFavoriteDish.dishes = updatedFavoriteDish.dishes.filter(dish => dish.id !== id);
+            fs.writeFile(p, JSON.stringify(updatedFavoriteDish), err => {
+                console.log(err);
+            })
+        })
+    }
+
+    static getFavoriteDish(cb){
+        fs.readFile(p, (err, fileContent) => {
+            const favoriteDish = JSON.parse(fileContent);
+            if (err){
+                cb(null);
+            } else {
+                cb(favoriteDish);
+            }
+        });
+    }
+};

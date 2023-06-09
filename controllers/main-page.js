@@ -1,4 +1,5 @@
 const Dish = require('../models/dish');
+const favoriteDish = require('../models/favorite-dish');
 const FavoriteDish = require('../models/favorite-dish');
 
 exports.getDishes = (req, res, next) => {
@@ -13,8 +14,8 @@ exports.getDishes = (req, res, next) => {
 };
 
 exports.getDish = (req, res, next) => {
-    const dishId1 = req.params.dishId;
-    Dish.findById(dishId1, dish => {
+    const dishId = req.params.dishId;
+    Dish.findById(dishId, dish => {
         res.render('main-page/dish-detail', {
             // pageTitle: 'Shop',
             dish: dish,
@@ -24,16 +25,29 @@ exports.getDish = (req, res, next) => {
 };
 
 exports.getFavoriteDish = (req, res, next) => {
-    res.render('main-page/favorite-dish', {
-        pageTitle: 'Món ăn yêu thích',
-        path: '/favorite-dish'
-    })  
-};
+    FavoriteDish.getFavoriteDish(favoriteDish => {
+        Dish.fetchAll(dishes => {
+            const favoriteDishArray = [];
+            for (dish of dishes){
+                const favoriteDishData = favoriteDish.dishes.find(dish1 => dish1.id === dish.id);
+                if (favoriteDishData){
+                    favoriteDishArray.push({ dishData: dish});
+                }
+            }
+            console.log(favoriteDishArray);
+            res.render('main-page/favorite-dish', {
+                path: '/favorite-dish',
+                dishes: favoriteDishArray
+            })
+        });
+    });
+}; 
 
 exports.postFavoriteDish = (req, res, next) => {
     const dishId1 = req.body.dishId;
     Dish.findById(dishId1, dish => {
-        favoriteDish.addDish(dishId1);
+        FavoriteDish.addDish(dishId1);
+        // console.log(dish);
     });
     res.redirect('/favorite-dish');
 };
