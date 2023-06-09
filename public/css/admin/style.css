@@ -10599,3 +10599,38 @@ div.code-toolbar > .toolbar span:hover {
 		box-shadow: 0 0 0 0 rgba(4, 169, 245, 0)
 	}
 }
+.management-search {
+  display: flex;
+  align-items: center;
+}
+
+.management-search-right {
+  display: inline-flex;
+  align-items: center;
+  margin-left:400px ;
+}
+
+.management-search-right h6 {
+  margin-right: 5px;
+}
+
+
+.rounded-search {
+  border-radius: 10px; /* Đặt bán kính bo tròn là 10px */
+}
+.button-search-management{
+  border-radius: 10px;
+}
+.management-search-right input[type="search"] {
+  /* flex-grow: 1; */
+  width: 350px;
+  border: 2px solid #C0C0C0;
+  /* padding: 5px; */
+
+}
+.management-search-right i{
+  padding-left:5px;
+}
+/* .management-search-right input.rounded-search {
+  border: 2px solid #007bff;
+} */
