@@ -992,6 +992,12 @@ button:focus{
     margin: 0px 10px;
     margin-bottom: 30px;
 }
+.blog-inner-box h3{
+    padding-top: 15px;
+    font-weight: 600;
+    font-size: 18px;
+    padding-bottom: 20px;
+}
 .side-blog-img {
     box-shadow: -15px -15px 0px 0px rgba(0,0,0,0.4);
     -webkit-transition: all 1s ease 0.01s;
@@ -1389,9 +1395,16 @@ blockquote {
     background-color: #9f9f9f;
   }
 
-
-
-
+.gallery-single.fix {
+    width: 300px;
+    /* height: 180px; */
+    
+   
+}
+.gallery-single img {
+    width: 100%;
+    height: auto;
+  }
 
 
 

@@ -115,9 +115,10 @@
 			</div>
 				
 			<% if (dishes.length > 0) { %>
+				<div class="d-flex flex-wrap justify-content-center">
 				<% dishes.forEach(dish => { %>
-					<div class="col-lg-4 col-md-6 special-grid drinks" onclick="window.location.href = '/dishes/<%= dish.id %>'">
-						<div class="gallery-single fix">
+					<!-- <div class="col-lg-4 col-md-6 special-grid drinks" onclick="window.location.href = '/dishes/<%= dish.id %>'"> -->
+						<div class="gallery-single fix" style="margin-right: 30px;">
 						  
 							<form action="/favorite-dish" method="post">
 								<button class="heart-btn" type="submit"><i class="fa-solid fa-heart"></i></button>
@@ -129,11 +130,12 @@
 						  <div class="why-text">
 							<h4><%= dish.name %></h4>
 							<!-- <p>Phở bò là món ăn yêu thích của người Hà Nội</p> -->
-							<h5>Admin</h5>
+							<!-- <h5>Admin</h5> -->
 						  </div>
+						
 						</div>
 				<% }) %>	
-				
+				</div>
 			<% } else { %>
 				<h1>Không tìm thấy món ăn!</h1>
 			<% } %>	
