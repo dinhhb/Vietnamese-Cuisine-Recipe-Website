@@ -56,7 +56,8 @@
                                                                         <td class="text-right">
                                                                             <a href="/dishes/<%= dish.id  %>" class="label theme-bg text-white f-12">Xem</a>
                                                                             <a href="/admin/edit-dish/<%= dish.id  %>?edit=true" class="label theme-bg2 text-white f-12">Sửa</a>
-                                                                            <form action="" method="post" style="display: inline;">
+                                                                            <form action="/admin/delete-dish" method="post" style="display: inline;">
+                                                                                <input type="hidden" value="<%= dish.id  %>" name="dishId">
                                                                                 <button type="submit" class="label bg-danger text-white f-12">Xoá</button>
                                                                             </form>                                                                    
                                                                         </td>                                                                

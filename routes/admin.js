@@ -18,4 +18,6 @@ router.post('/edit-dish', adminController.postEditDish);
 
 router.get('/statistic', adminController.getStatistic);
 
+router.post('/delete-dish', adminController.postDeleteDish);
+
 module.exports = router;

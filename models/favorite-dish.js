@@ -4,33 +4,33 @@ const path = require("path");
 const p = path.join(
     path.dirname(process.mainModule.filename),
     "data",
-    "liked-dish.json"
+    "favorite-dish.json"
   );
 
-module.exports = class LikedDish{
+module.exports = class favoriteDish{
     static addDish(id){
         // lấy danh sách món ăn đã thích
         fs.readFile(p, (err, fileContent) => {
-            let likedDish = {dishes: []};
+            let favoriteDish = {dishes: []};
             if (!err){
-                likedDish = JSON.parse(fileContent);
+                favoriteDish = JSON.parse(fileContent);
             }
                 // duyệt qua danh sách => tìm món ăn đã tồn tại
-            const existingDishIndex = likedDish.dishes.findIndex(dish => dish.id === id);
-            const existingDish = likedDish.dishes[existingDishIndex];
+            const existingDishIndex = favoriteDish.dishes.findIndex(dish => dish.id === id);
+            const existingDish = favoriteDish.dishes[existingDishIndex];
             let updatedDish;
 
             // thêm món ăn đã thích mới/ tăng số lượng 
             if (existingDish){
                 updatedDish = { ...existingDish };
                 updatedDish.qty = updatedDish.qty + 1;
-                likedDish.dishes = [...likedDish.dishes];
-                likedDish.dishes[existingDishIndex] = updatedDish;
+                favoriteDish.dishes = [...favoriteDish.dishes];
+                favoriteDish.dishes[existingDishIndex] = updatedDish;
             } else {
                 updatedDish = { id: id, qty: 1};
-                likedDish.dishes = [...likedDish.dishes, updatedDish];
+                favoriteDish.dishes = [...favoriteDish.dishes, updatedDish];
             }
-            fs.writeFile(p, JSON.stringify(likedDish), err => {
+            fs.writeFile(p, JSON.stringify(favoriteDish), err => {
                 console.log(err);
             })
         });

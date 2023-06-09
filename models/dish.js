@@ -52,6 +52,17 @@ module.exports = class Dish {
     });
   }
 
+  static deleteById(id){
+    getDishesFromFile(dishes => {
+      const updatedDishes = dishes.filter(dish => dish.id !== id);
+      fs.writeFile(p, JSON.stringify(updatedDishes), err => {
+        if (!err) {
+          
+        }
+      })
+    })
+  }
+
   static fetchAll(cb) {
     getDishesFromFile(cb);
   }

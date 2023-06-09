@@ -78,3 +78,7 @@ exports.getStatistic = (req, res, next) => {
         path: '/admin/statistic'
     })  
 }
+
+exports.postDeleteDish = (req, res, next) => {
+    
+}

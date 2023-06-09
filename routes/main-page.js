@@ -10,4 +10,8 @@ router.get('/', mainPageController.getDishes);
 
 router.get('/dishes/:dishId', mainPageController.getDish);
 
+router.get('/favorite-dish', mainPageController.getFavoriteDish);
+
+router.post('/favorite-dish', mainPageController.postFavoriteDish);
+
 module.exports = router;
