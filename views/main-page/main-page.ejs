@@ -117,12 +117,11 @@
 			<% if (dishes.length > 0) { %>
 				<div class="d-flex flex-wrap justify-content-center">
 				<% dishes.forEach(dish => { %>
-					<!-- <div class="col-lg-4 col-md-6 special-grid drinks" onclick="window.location.href = '/dishes/<%= dish.id %>'"> -->
-						<div class="gallery-single fix" style="margin-right: 30px;" onclick="window.location.href = '/dishes/<%= dish.id %>'">
+						<div class="gallery-single fix" style="margin-right: 30px;" onclick="window.location.href = '/dishes/<%= dish._id %>'">
 						  
 							<form action="/favorite-dish" method="post">
 								<button class="heart-btn" type="submit"><i class="fa-solid fa-heart"></i></button>
-								<input type="hidden" name="dishId" value="<%= dish.id  %>">
+								<input type="hidden" name="dishId" value="<%= dish._id  %>">
 							</form>
 	
 						  <img src="/images/img-01.jpg" class="img-fluid" alt="Image">
@@ -145,60 +144,5 @@
 	</div>
 	<!-- End Menu -->
 	
-	<!-- Start Customer Reviews -->
-	<!-- <div class="customer-reviews-box">
-		<div class="container">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="heading-title text-center">
-						<h2>Nhận xét</h2>
-						<p>Một số nhận xét của người nước ngoài về ẩm thực Việt Nam</p>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-8 mr-auto ml-auto text-center">
-					<div id="reviews" class="carousel slide" data-ride="carousel">
-						<div class="carousel-inner mt-4">
-							<div class="carousel-item text-center active">
-								<div class="img-box p-1 border rounded-circle m-auto">
-									<img class="d-block w-100 rounded-circle" src="/images/profile-1.jpg" alt="">
-								</div>
-								<h5 class="mt-4 mb-0"><strong class="text-warning text-uppercase">Gordon Ramsay</strong></h5>
-								<h6 class="text-dark m-0">Đầu bếp</h6>
-								<p class="m-0 pt-3">May mắn tôi không sinh ra ở Việt Nam, nếu không tôi chỉ là một đầu bếp tồi.</p>
-							</div>
-							<div class="carousel-item text-center">
-								<div class="img-box p-1 border rounded-circle m-auto">
-									<img class="d-block w-100 rounded-circle" src="/images/profile-2.jpg" alt="">
-								</div>
-								<h5 class="mt-4 mb-0"><strong class="text-warning text-uppercase">Barack Obama</strong></h5>
-								<h6 class="text-dark m-0">Cựu Tổng thống Mỹ</h6>
-								<p class="m-0 pt-3">Chiếc ghế nhựa thấp, món bún rẻ nhưng ngon tuyệt, bia Hà Nội mát lạnh.</p>
-							</div>
-							<div class="carousel-item text-center">
-								<div class="img-box p-1 border rounded-circle m-auto">
-									<img class="d-block w-100 rounded-circle" src="/images/profile-3.jpg" alt="">
-								</div>
-								<h5 class="mt-4 mb-0"><strong class="text-warning text-uppercase">Anthony Bourdain</strong></h5>
-								<h6 class="text-dark m-0">Đầu bếp</h6>
-								<p class="m-0 pt-3">Bún bò Huế là loại súp số 1 thế giới.</p>
-							</div>
-						</div>
-						<a class="carousel-control-prev" href="#reviews" role="button" data-slide="prev">
-							<i class="fa fa-angle-left" aria-hidden="true"></i>
-							<span class="sr-only">Previous</span>
-						</a>
-						<a class="carousel-control-next" href="#reviews" role="button" data-slide="next">
-							<i class="fa fa-angle-right" aria-hidden="true"></i>
-							<span class="sr-only">Next</span>
-						</a>
-                    </div>
-				</div>
-			</div>
-		</div>
-	</div> -->
-	<!-- End Customer Reviews -->
 	
 	<%- include('includes/end.ejs') %>

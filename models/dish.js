@@ -1,78 +1,66 @@
-const fs = require("fs");
-const path = require("path");
-
-const FavoriteDish = require('./favorite-dish');
-
-const p = path.join(
-    path.dirname(process.mainModule.filename),
-    "data",
-    "dishes.json"
-  );
-
-const getDishesFromFile = cb => {
-    fs.readFile(p, (err, fileContent) => {
-        if (err){
-            cb([]);
-        }
-        else {
-            cb(JSON.parse(fileContent));
-        }
-    });
-};
-
-module.exports = class Dish {
-  constructor(id, name, image, type, ingredients, steps, requirement) {
-    this.id = id;
+const mongodb = require("mongodb");
+const getDb = require("../utils/database").getDb;
+class Dish {
+  constructor(name, image, type, ingredients, steps, requirement, id) {
     this.name = name;
     this.image = image;
     this.type = type;
     this.ingredients = ingredients;
     this.steps = steps;
     this.requirement = requirement;
+    this._id = id ? new mongodb.ObjectId(id) : null;
   }
 
   save() {
-    // console.log(this.id);
-    getDishesFromFile(dishes => {
-      // edit mon an
-      if (this.id){
-        const existingDishIndex = dishes.findIndex(dish => dish.id === this.id);
-        const updatedDishes = [...dishes];
-        updatedDishes[existingDishIndex] = this;
-        fs.writeFile(p, JSON.stringify(updatedDishes), err => {
-          console.log(err);
-        });
-      
-      // add mon an
-      } else {
-          this.id = Math.random().toString();
-          dishes.push(this);
-          fs.writeFile(p, JSON.stringify(dishes), err => {
-            console.log(err);
-          })
-      }
-    });
-  }
-
-  static deleteById(id){
-    getDishesFromFile(dishes => {
-      const updatedDishes = dishes.filter(dish => dish.id !== id);
-      fs.writeFile(p, JSON.stringify(updatedDishes), err => {
-        if (!err) {
-          FavoriteDish.deleteDish(id);
-        }
+    const db = getDb();
+    let dbOb;
+    if (this._id) {
+      // update dish
+      dbOb = db
+        .collection("dishes")
+        .updateOne({ _id: this._id }, { $set: this });
+    } else {
+      // add dish
+      dbOb = db.collection('dishes'.insertOne(this));
+    }
+    return dbOb
+      .then((result) => {
+        console.log(result);
       })
-    })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
-  static fetchAll(cb) {
-    getDishesFromFile(cb);
+  static fetchAll() {
+    const db = getDb();
+    return db
+      .collection("dishes")
+      .find()
+      .toArray()
+      .then((dishes) => {
+        console.log(dishes);
+        return dishes;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
-  static findById(id, cb){
-    getDishesFromFile(dishes => {
-      const dish = dishes.find(p => p.id === id);
-      cb(dish);
-    });
+  static findById(dishId) {
+    const db = getDb();
+    return db
+      .collection("dishes")
+      .find({ _id: new mongodb.ObjectId(dishId) })
+      .next()
+      .then((dish) => {
+        console.log(dish);
+        return dish;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
-};
+}
+
+module.exports = Dish;

@@ -72,7 +72,7 @@
                                                     </div>
                                                 </div>
                                                 <% if (editing) { %>
-                                                    <input type="hidden" value="<%= dish.id %>" name="dishId">
+                                                    <input type="hidden" value="<%= dish._id %>" name="dishId">
                                                 <% } %>
                                                 <div class="text-center"> <!-- Thêm lớp "text-center" để căn giữa -->
                                                     <button type="submit" class="btn btn-primary"><% if (editing) { %>Sửa món<% } else { %>Thêm món<% } %></button>
