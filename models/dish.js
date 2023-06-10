@@ -32,7 +32,7 @@ module.exports = class Dish {
   }
 
   save() {
-    console.log(this.id);
+    // console.log(this.id);
     getDishesFromFile(dishes => {
       // edit mon an
       if (this.id){

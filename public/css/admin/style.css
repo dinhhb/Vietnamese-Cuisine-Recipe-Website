@@ -10557,7 +10557,7 @@ div.code-toolbar > .toolbar span:hover {
 .fixed-button .btn:hover {
 	background: #79b530;
 	border: none;
-	border-bottom: 2px solid #5e8d25
+	border-bottom: 2px solid #5e8d25;
 }
 
 .fixed-button:hover {

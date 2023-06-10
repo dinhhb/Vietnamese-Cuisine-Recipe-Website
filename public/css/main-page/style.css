@@ -406,6 +406,11 @@ button:focus{
     border-radius: 4px;
 }
 
+.filter-button-group button:hover {
+    background: #cfa671; 
+    color: #fff;
+  }
+
 .filter-button-group button.active {
     background: #cfa671;
     color: #fff;
@@ -1373,7 +1378,7 @@ blockquote {
     cursor: pointer;
   }
   
-  .edit-btn, .delete-btn, .heart-btn:hover {
+  .edit-btn, .delete-btn:hover, .heart-btn:hover {
     color: #cfa671;
   }
 

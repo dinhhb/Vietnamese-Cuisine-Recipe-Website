@@ -1,5 +1,4 @@
 const Dish = require('../models/dish');
-const favoriteDish = require('../models/favorite-dish');
 const FavoriteDish = require('../models/favorite-dish');
 
 exports.getDishes = (req, res, next) => {
@@ -31,10 +30,10 @@ exports.getFavoriteDish = (req, res, next) => {
             for (dish of dishes){
                 const favoriteDishData = favoriteDish.dishes.find(dish1 => dish1.id === dish.id);
                 if (favoriteDishData){
-                    favoriteDishArray.push({ dishData: dish});
+                    favoriteDishArray.push(dish);
                 }
             }
-            console.log(favoriteDishArray);
+            // console.log(favoriteDishArray);
             res.render('main-page/favorite-dish', {
                 path: '/favorite-dish',
                 dishes: favoriteDishArray
@@ -44,10 +43,13 @@ exports.getFavoriteDish = (req, res, next) => {
 }; 
 
 exports.postFavoriteDish = (req, res, next) => {
-    const dishId1 = req.body.dishId;
-    Dish.findById(dishId1, dish => {
-        FavoriteDish.addDish(dishId1);
-        // console.log(dish);
-    });
+    const dishId = req.body.dishId;
+    FavoriteDish.addDish(dishId);
+    res.redirect('/favorite-dish');
+};
+
+exports.postDeleteFavoriteDish = (req, res, next) => {
+    const dishId = req.body.dishId;
+    FavoriteDish.deleteDish(dishId);
     res.redirect('/favorite-dish');
 };

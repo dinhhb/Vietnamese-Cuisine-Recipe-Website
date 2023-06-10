@@ -91,7 +91,7 @@
 					<div class="heading-title text-center">
 						<h2>THỰC ĐƠN</h2>
 						<div class="blog-search-form">
-							<input name="search" placeholder="Bạn cần tìm gì?" type="text">
+							<input name="search" placeholder="Nhập tên món ăn" type="text">
 							<button class="search-btn">
 								<i class="fa fa-search" aria-hidden="true"></i>
 							</button>
@@ -118,7 +118,7 @@
 				<div class="d-flex flex-wrap justify-content-center">
 				<% dishes.forEach(dish => { %>
 					<!-- <div class="col-lg-4 col-md-6 special-grid drinks" onclick="window.location.href = '/dishes/<%= dish.id %>'"> -->
-						<div class="gallery-single fix" style="margin-right: 30px;">
+						<div class="gallery-single fix" style="margin-right: 30px;" onclick="window.location.href = '/dishes/<%= dish.id %>'">
 						  
 							<form action="/favorite-dish" method="post">
 								<button class="heart-btn" type="submit"><i class="fa-solid fa-heart"></i></button>
@@ -134,6 +134,7 @@
 						  </div>
 						
 						</div>
+					<!-- </div> -->
 				<% }) %>	
 				</div>
 			<% } else { %>
