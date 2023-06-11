@@ -80,3 +80,21 @@ exports.getClearFavoriteDish = (req, res, next) => {
   res.clearCookie("favoriteDish");
   res.redirect("/"); // Hoặc định tuyến đến trang khác sau khi xóa cookie
 };
+
+exports.getDishByIngredient = (req, res, next) => {
+  const ingredient = req.query.ingredient; // Lấy giá trị của tham số truy vấn "ingredient"
+
+  Dish.find({ ingredients: ingredient })
+    .then((dishes) => {
+      // Render trang search-result với danh sách món ăn tìm thấy
+      res.render("main-page/dish-by-ingredient", {
+        dishes: dishes,
+        hasDishes: dishes.length > 0,
+        ingredient: ingredient
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.redirect("/");
+    });
+};

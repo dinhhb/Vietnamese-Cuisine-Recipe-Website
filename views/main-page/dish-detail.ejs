@@ -131,23 +131,8 @@
 						<h3>Nguyên liệu</h3>
 						<div class="blog-categories">
 							<ul>
-								<!-- <li><a href="#"><span>Rau muống trắng 500g</span></a></li>
-								<li><a href="#"><span>Giá đỗ 200g</span></a></li>
-								<li><a href="#"><span>Ốt tươi 2 quả</span></a></li>
-								<li><a href="#"><span>Mỡ nước 10g</span></a></li>
-								<li><a href="#"><span>Tai lợn 200g</span></a></li>
-								<li><a href="#"><span>Nước mắm</span></a></li>
-								<li><a href="#"><span>Tai lợn</span></a></li>
-								<li><a href="#"><span>Mì chính</span></a></li>
-								<li><a href="#"><span>Vừng 50g</span></a></li>
-								<li><a href="#"><span>Tỉnh dầu cà cuống</span></a></li>
-								<li><a href="#"><span>Lạc 80g</span></a></li>
-								<li><a href="#"><span>Rau thơm</span></a></li>
-								<li><a href="#"><span>Đường 10g</span></a></li>
-								<li><a href="#"><span>Rau mùi</span></a></li>
-								<li><a href="#"><span>Chanh to 2 quả</span></a></li> -->
 								<% for (let ingredient of dish.ingredients) { %>
-									<li><a href="#"><span><%= ingredient  %></span></a></li>
+									<li><a href="/dish-by-ingredient?ingredient=<%= ingredient %>"><span><%= ingredient  %></span></a></li>
 								<% } %>
 							</ul>
 						</div>
@@ -208,17 +193,6 @@
 								</div>
 							</div>
 						</div>
-						<!-- <h3>Recent Tag</h3>
-						<div class="blog-tag-box">
-							<ul class="list-inline tag-list">
-								<li class="list-inline-item"><a href="#">Food</a></li>
-								<li class="list-inline-item"><a href="#">Drink</a></li>
-								<li class="list-inline-item"><a href="#">Nature</a></li>
-								<li class="list-inline-item"><a href="#">Italian</a></li>
-								<li class="list-inline-item"><a href="#">Bootstrap4</a></li>
-								<li class="list-inline-item"><a href="#">Fashion</a></li>
-							</ul>
-						</div> -->
 					</div>
 				</div>
 			

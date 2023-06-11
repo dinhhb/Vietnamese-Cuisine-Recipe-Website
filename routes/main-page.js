@@ -14,8 +14,10 @@ router.get('/favorite-dish', mainPageController.getFavoriteDish);
 
 router.post('/favorite-dish', mainPageController.postFavoriteDish);
 
-// router.post('/delete-favorite-dish', mainPageController.postDeleteFavoriteDish);
+router.post('/delete-favorite-dish', mainPageController.postDeleteFavoriteDish);
 
-// router.get('/clear-favorite-dish', mainPageController.getClearFavoriteDish);
+router.get('/clear-favorite-dish', mainPageController.getClearFavoriteDish);
+
+router.get('/dish-by-ingredient', mainPageController.getDishByIngredient);
 
 module.exports = router;
