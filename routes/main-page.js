@@ -10,10 +10,12 @@ router.get('/', mainPageController.getDishes);
 
 router.get('/dishes/:dishId', mainPageController.getDish);
 
-// router.get('/favorite-dish', mainPageController.getFavoriteDish);
+router.get('/favorite-dish', mainPageController.getFavoriteDish);
 
 router.post('/favorite-dish', mainPageController.postFavoriteDish);
 
 router.post('/delete-favorite-dish', mainPageController.postDeleteFavoriteDish);
+
+router.get('/clear-favorite-dish', mainPageController.getClearFavoriteDish);
 
 module.exports = router;

@@ -34,11 +34,11 @@
 			<% if (dishes.length > 0) { %>
 				<div class="d-flex flex-wrap justify-content-center">
 				<% dishes.forEach(dish => { %>
-						<div class="gallery-single fix" style="margin-right: 30px;" onclick="window.location.href = '/dishes/<%= dish.id %>'">
+						<div class="gallery-single fix" style="margin-right: 30px;" onclick="window.location.href = '/dishes/<%= dish._id %>'">
 							
 							<form action="/delete-favorite-dish" method="post">
 								<button class="delete-btn" type="submit"><i class="fa-solid fa-trash"></i></button>
-								<input type="hidden" name="dishId" value="<%= dish.id  %>">
+								<input type="hidden" name="dishId" value="<%= dish._id  %>">
 							</form>
 
 							<img src="/images/img-01.jpg" class="img-fluid" alt="Image">

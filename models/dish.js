@@ -21,7 +21,7 @@ class Dish {
         .updateOne({ _id: this._id }, { $set: this });
     } else {
       // add dish
-      dbOb = db.collection('dishes'.insertOne(this));
+      dbOb = db.collection("dishes").insertOne(this);
     }
     return dbOb
       .then((result) => {
@@ -39,7 +39,7 @@ class Dish {
       .find()
       .toArray()
       .then((dishes) => {
-        console.log(dishes);
+        // console.log(dishes);
         return dishes;
       })
       .catch((err) => {
@@ -56,6 +56,19 @@ class Dish {
       .then((dish) => {
         console.log(dish);
         return dish;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  static deleteById(dishId) {
+    const db = getDb();
+    return db
+      .collection("dishes")
+      .deleteOne({ _id: new mongodb.ObjectId(dishId) })
+      .then((result) => {
+        console.log("Deleted");
       })
       .catch((err) => {
         console.log(err);

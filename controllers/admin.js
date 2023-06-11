@@ -108,6 +108,15 @@ exports.getStatistic = (req, res, next) => {
 
 exports.postDeleteDish = (req, res, next) => {
   const dishId = req.body.dishId;
-  Dish.deleteById(dishId);
-  res.redirect("/admin/dish-management");
+  Dish.deleteById(dishId)
+    .then(() => {
+      // Xóa dishId khỏi cookie
+      let favoriteDishIds = req.cookies.favoriteDish || [];
+      favoriteDishIds = favoriteDishIds.filter((id) => id !== dishId);
+      res.cookie('favoriteDish', favoriteDishIds);
+      console.log('DELETED DISH');
+      res.redirect('/admin/dish-management');
+    })
+    .catch((err) => console.log(err));
 };
+
