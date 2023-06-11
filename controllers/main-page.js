@@ -1,7 +1,8 @@
 const Dish = require("../models/dish");
 
 exports.getDishes = (req, res, next) => {
-  Dish.fetchAll().then((dishes) => {
+  Dish.find().then((dishes) => {
+    // console.log(dishes);
     res.render("main-page/main-page", {
       pageTitle: "Ẩm thực việt",
       dishes: dishes,
@@ -25,7 +26,7 @@ exports.getDish = (req, res, next) => {
 exports.getFavoriteDish = (req, res, next) => {
   const favoriteDishIds = req.cookies.favoriteDish;
   console.log(favoriteDishIds);
-  Dish.fetchAll()
+  Dish.find()
     .then((dishes) => {
       const favoriteDishArray = dishes.filter((dish) => {
         // So sánh String của favoriteDishIds với String của dish._id
@@ -41,7 +42,6 @@ exports.getFavoriteDish = (req, res, next) => {
       res.redirect("/");
     });
 };
-
 
 exports.postFavoriteDish = (req, res, next) => {
   const dishId = req.body.dishId;
@@ -59,8 +59,6 @@ exports.postFavoriteDish = (req, res, next) => {
   res.redirect("/favorite-dish");
 };
 
-
-
 exports.postDeleteFavoriteDish = (req, res, next) => {
   const dishId = req.body.dishId;
   let favoriteDishIds = req.cookies.favoriteDish || [];
@@ -71,9 +69,7 @@ exports.postDeleteFavoriteDish = (req, res, next) => {
   }
 
   // Tìm và xóa dishId khỏi mảng favoriteDishIds
-  const updatedFavoriteDishIds = favoriteDishIds.filter(
-    (id) => id !== dishId
-  );
+  const updatedFavoriteDishIds = favoriteDishIds.filter((id) => id !== dishId);
 
   // Cập nhật cookie với mảng favoriteDishIds đã được xóa
   res.cookie("favoriteDish", updatedFavoriteDishIds);
@@ -81,6 +77,6 @@ exports.postDeleteFavoriteDish = (req, res, next) => {
 };
 
 exports.getClearFavoriteDish = (req, res, next) => {
-  res.clearCookie('favoriteDish');
-  res.redirect('/'); // Hoặc định tuyến đến trang khác sau khi xóa cookie
+  res.clearCookie("favoriteDish");
+  res.redirect("/"); // Hoặc định tuyến đến trang khác sau khi xóa cookie
 };

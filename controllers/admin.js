@@ -1,14 +1,16 @@
 const Dish = require("../models/dish");
 
 exports.getDishManagement = (req, res, next) => {
-  Dish.fetchAll().then((dishes) => {
-    res.render("admin/dish-management", {
-      pageTitle: "Quản lý món ăn",
-      dishes: dishes,
-      hasDishes: dishes.length > 0,
-      path: "/admin/dish-management",
-    });
-  });
+  Dish.find()
+    .then((dishes) => {
+      res.render("admin/dish-management", {
+        pageTitle: "Quản lý món ăn",
+        dishes: dishes,
+        hasDishes: dishes.length > 0,
+        path: "/admin/dish-management",
+      });
+    })
+    .catch((err) => console.log(err));
 };
 
 exports.getAddDish = (req, res, next) => {
@@ -26,13 +28,22 @@ exports.postAddDish = (req, res, next) => {
   let ingredients = req.body["ingredient[]"];
   let steps = req.body["step[]"];
   const requirement = req.body.requirement.trim();
+
   // Loại bỏ các giá trị null hoặc trống từ mảng ingredients
   ingredients = ingredients.filter(
     (ingredient) => ingredient !== null && ingredient.trim() !== ""
   );
   // Loại bỏ các giá trị null hoặc trống từ mảng steps
   steps = steps.filter((step) => step !== null && step.trim() !== "");
-  const dish = new Dish(name, image, type, ingredients, steps, requirement);
+
+  const dish = new Dish({
+    name: name,
+    image: image,
+    type: type,
+    ingredients: ingredients,
+    steps: steps,
+    requirement: requirement,
+  });
   dish
     .save()
     .then((result) => {
@@ -51,17 +62,19 @@ exports.getEditDish = (req, res, next) => {
   }
 
   const dishId = req.params.dishId;
-  Dish.findById(dishId).then((dish) => {
-    if (!dish) {
-      return res.redirect("/");
-    }
-    res.render("admin/edit-dish", {
-      pageTitle: "Sửa món ăn",
-      path: "/admin/edit-dish",
-      editing: editMode,
-      dish: dish,
-    });
-  });
+  Dish.findById(dishId)
+    .then((dish) => {
+      if (!dish) {
+        return res.redirect("/");
+      }
+      res.render("admin/edit-dish", {
+        pageTitle: "Sửa món ăn",
+        path: "/admin/edit-dish",
+        editing: editMode,
+        dish: dish,
+      });
+    })
+    .catch((err) => console.log(err));
 };
 
 exports.postEditDish = (req, res, next) => {
@@ -72,6 +85,7 @@ exports.postEditDish = (req, res, next) => {
   let updatedIngredients = req.body["ingredient[]"];
   let updatedSteps = req.body["step[]"];
   const updatedRequirement = req.body.requirement.trim();
+
   // Loại bỏ các giá trị null hoặc trống từ mảng ingredients
   updatedIngredients = updatedIngredients.filter(
     (updatedIngredients) =>
@@ -81,17 +95,17 @@ exports.postEditDish = (req, res, next) => {
   updatedSteps = updatedSteps.filter(
     (updatedSteps) => updatedSteps !== null && updatedSteps.trim() !== ""
   );
-  const updatedDish = new Dish(
-    updatedName,
-    updatedImage,
-    updatedType,
-    updatedIngredients,
-    updatedSteps,
-    updatedRequirement,
-    dishId
-  );
-  updatedDish
-    .save()
+
+  Dish.findById(dishId)
+    .then((dish) => {
+      dish.name = updatedName;
+      dish.image = updatedImage;
+      dish.type = updatedType;
+      dish.ingredients = updatedIngredients;
+      dish.steps = updatedSteps;
+      dish.requirement = updatedRequirement;
+      return dish.save();
+    })
     .then((result) => {
       console.log("UPDATED DISH");
       res.redirect("/admin/dish-management");
@@ -108,15 +122,14 @@ exports.getStatistic = (req, res, next) => {
 
 exports.postDeleteDish = (req, res, next) => {
   const dishId = req.body.dishId;
-  Dish.deleteById(dishId)
+  Dish.findByIdAndRemove(dishId)
     .then(() => {
       // Xóa dishId khỏi cookie
       let favoriteDishIds = req.cookies.favoriteDish || [];
       favoriteDishIds = favoriteDishIds.filter((id) => id !== dishId);
-      res.cookie('favoriteDish', favoriteDishIds);
-      console.log('DELETED DISH');
-      res.redirect('/admin/dish-management');
+      res.cookie("favoriteDish", favoriteDishIds);
+      console.log("DELETED DISH");
+      res.redirect("/admin/dish-management");
     })
     .catch((err) => console.log(err));
 };
-
