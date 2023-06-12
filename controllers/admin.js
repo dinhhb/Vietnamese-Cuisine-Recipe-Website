@@ -1,3 +1,5 @@
+const { body, validationResult } = require('express-validator');
+
 const Dish = require("../models/dish");
 
 exports.getDishManagement = (req, res, next) => {
@@ -18,6 +20,9 @@ exports.getAddDish = (req, res, next) => {
     pageTitle: "Thêm món ăn",
     path: "/admin/add-dish",
     editing: false,
+    hasError: false,
+    errorMessage: null,
+    validationErrors: []
   });
 };
 
@@ -35,6 +40,31 @@ exports.postAddDish = (req, res, next) => {
   );
   // Loại bỏ các giá trị null hoặc trống từ mảng steps
   steps = steps.filter((step) => step !== null && step.trim() !== "");
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()){
+    console.log(errors.array());
+
+    const validationErrors = errors.array();
+    const nameError = validationErrors.find(e => e.param === 'name');
+    console.log(nameError); // Log the nameError object
+
+    return res.status(422).render("admin/edit-dish", {
+      pageTitle: "Thêm món ăn",
+      path: "/admin/edit-dish",
+      editing: false,
+      hasError: true,
+      dish: {
+        name: name,
+        image: image,
+        ingredients: ingredients,
+        steps: steps,
+        requirement: requirement
+      },
+      errorMessage: errors.array()[0].msg,
+      validationErrors: errors.array()
+    });
+  }
 
   const dish = new Dish({
     name: name,
@@ -72,6 +102,8 @@ exports.getEditDish = (req, res, next) => {
         path: "/admin/edit-dish",
         editing: editMode,
         dish: dish,
+        hasError: false, 
+        errorMessage: null
       });
     })
     .catch((err) => console.log(err));
@@ -95,6 +127,25 @@ exports.postEditDish = (req, res, next) => {
   updatedSteps = updatedSteps.filter(
     (updatedSteps) => updatedSteps !== null && updatedSteps.trim() !== ""
   );
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()){
+    return res.status(422).render("admin/edit-dish", {
+      pageTitle: "Sửa món ăn",
+      path: "/admin/edit-dish",
+      editing: true,
+      hasError: true,
+      dish: {
+        name: updatedName,
+        image: updatedImage,
+        ingredients: updatedIngredients,
+        steps: updatedSteps,
+        requirement: updatedRequirement,
+        _id: dishId
+      },
+      errorMessage: errors.array()[0].msg
+    });
+  }
 
   Dish.findById(dishId)
     .then((dish) => {

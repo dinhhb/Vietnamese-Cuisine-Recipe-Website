@@ -10634,3 +10634,20 @@ div.code-toolbar > .toolbar span:hover {
 /* .management-search-right input.rounded-search {
   border: 2px solid #007bff;
 } */
+
+.user-message {
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.user-message--error {
+  background-color: #ff0000;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.error-text {
+  font-weight: bold;
+  color: red;
+}
+
