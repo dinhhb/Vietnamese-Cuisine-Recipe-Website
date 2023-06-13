@@ -1,15 +1,21 @@
 const Dish = require("../models/dish");
 
 exports.getDishes = (req, res, next) => {
-  Dish.find().then((dishes) => {
-    // console.log(dishes);
-    res.render("main-page/main-page", {
-      pageTitle: "Ẩm thực việt",
-      dishes: dishes,
-      hasDishes: dishes.length > 0,
-      path: "/",
+  Dish.find()
+    .then((dishes) => {
+      // console.log(dishes);
+      res.render("main-page/main-page", {
+        pageTitle: "Ẩm thực việt",
+        dishes: dishes,
+        hasDishes: dishes.length > 0,
+        path: "/",
+      });
+    })
+    .catch((err) => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
-  });
 };
 
 exports.getDish = (req, res, next) => {
@@ -20,6 +26,10 @@ exports.getDish = (req, res, next) => {
       dish: dish,
       path: "/dish-detail",
     });
+  }).catch((err) => {
+    const error = new Error(err);
+    error.httpStatusCode = 500;
+    return next(error);    
   });
 };
 
@@ -38,48 +48,62 @@ exports.getFavoriteDish = (req, res, next) => {
       });
     })
     .catch((err) => {
-      console.log(err);
-      res.redirect("/");
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);    
     });
 };
 
-exports.postFavoriteDish = (req, res, next) => {
-  const dishId = req.body.dishId;
-  let favoriteDishIds = req.cookies.favoriteDish || []; // Mặc định là một mảng rỗng nếu cookie chưa tồn tại
+exports.postFavoriteDish = async (req, res, next) => {
+  try {
+    const dishId = req.body.dishId;
+    let favoriteDishIds = req.cookies.favoriteDish || [];
 
-  // Kiểm tra nếu favoriteDishIds không phải là một mảng, chuyển đổi thành mảng
-  if (!Array.isArray(favoriteDishIds)) {
-    favoriteDishIds = [favoriteDishIds];
-  }
+    // Kiểm tra nếu favoriteDishIds không phải là một mảng, chuyển đổi thành mảng
+    if (!Array.isArray(favoriteDishIds)) {
+      favoriteDishIds = [favoriteDishIds];
+    }
 
-  if (!favoriteDishIds.includes(dishId)) {
-    favoriteDishIds.push(dishId);
+    if (!favoriteDishIds.includes(dishId)) {
+      favoriteDishIds.push(dishId);
+    }
+
+    await res.cookie("favoriteDish", favoriteDishIds);
+    res.redirect("/favorite-dish");
+  } catch (error) {
+    const err = new Error(error);
+    err.httpStatusCode = 500;
+    return next(err);
   }
-  res.cookie("favoriteDish", favoriteDishIds);
-  res.redirect("/favorite-dish");
 };
 
-exports.postDeleteFavoriteDish = (req, res, next) => {
-  const dishId = req.body.dishId;
-  let favoriteDishIds = req.cookies.favoriteDish || [];
+exports.postDeleteFavoriteDish = async (req, res, next) => {
+  try {
+    const dishId = req.body.dishId;
+    let favoriteDishIds = req.cookies.favoriteDish || [];
 
-  // Kiểm tra nếu favoriteDishIds không phải là một mảng, chuyển đổi thành mảng
-  if (!Array.isArray(favoriteDishIds)) {
-    favoriteDishIds = [favoriteDishIds];
+    // Kiểm tra nếu favoriteDishIds không phải là một mảng, chuyển đổi thành mảng
+    if (!Array.isArray(favoriteDishIds)) {
+      favoriteDishIds = [favoriteDishIds];
+    }
+
+    // Tìm và xóa dishId khỏi mảng favoriteDishIds
+    const updatedFavoriteDishIds = favoriteDishIds.filter((id) => id !== dishId);
+
+    await res.cookie("favoriteDish", updatedFavoriteDishIds);
+    res.redirect("/favorite-dish");
+  } catch (error) {
+    const err = new Error(error);
+    err.httpStatusCode = 500;
+    return next(err);
   }
-
-  // Tìm và xóa dishId khỏi mảng favoriteDishIds
-  const updatedFavoriteDishIds = favoriteDishIds.filter((id) => id !== dishId);
-
-  // Cập nhật cookie với mảng favoriteDishIds đã được xóa
-  res.cookie("favoriteDish", updatedFavoriteDishIds);
-  res.redirect("/favorite-dish");
 };
 
-exports.getClearFavoriteDish = (req, res, next) => {
-  res.clearCookie("favoriteDish");
-  res.redirect("/"); // Hoặc định tuyến đến trang khác sau khi xóa cookie
-};
+
+// exports.getClearFavoriteDish = (req, res, next) => {
+//   res.clearCookie("favoriteDish");
+//   res.redirect("/");
+// };
 
 exports.getDishByIngredient = (req, res, next) => {
   const ingredient = req.query.ingredient; // Lấy giá trị của tham số truy vấn "ingredient"
@@ -90,11 +114,12 @@ exports.getDishByIngredient = (req, res, next) => {
       res.render("main-page/dish-by-ingredient", {
         dishes: dishes,
         hasDishes: dishes.length > 0,
-        ingredient: ingredient
+        ingredient: ingredient,
       });
     })
     .catch((err) => {
-      console.log(err);
-      res.redirect("/");
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);    
     });
 };

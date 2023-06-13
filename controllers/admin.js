@@ -14,7 +14,11 @@ exports.getDishManagement = (req, res, next) => {
         path: "/admin/dish-management",
       });
     })
-    .catch((err) => console.log(err));
+    .catch(err => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    });
 };
 
 exports.getAddDish = (req, res, next) => {
@@ -44,7 +48,7 @@ exports.postAddDish = (req, res, next) => {
 
     return res.status(422).render("admin/edit-dish", {
       pageTitle: "Thêm món ăn",
-      path: "/admin/edit-dish",
+      path: "/admin/add-dish",
       editing: false,
       hasError: true,
       dish: {
@@ -74,7 +78,10 @@ exports.postAddDish = (req, res, next) => {
       res.redirect("/admin/dish-management");
     })
     .catch((err) => {
-      console.log(err);
+      // console.log(err);
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };
 
@@ -99,7 +106,11 @@ exports.getEditDish = (req, res, next) => {
         errorMessage: null
       });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);    
+    });
 };
 
 exports.postEditDish = (req, res, next) => {
@@ -147,7 +158,11 @@ exports.postEditDish = (req, res, next) => {
       console.log("UPDATED DISH");
       res.redirect("/admin/dish-management");
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);    
+    });
 };
 
 exports.getStatistic = (req, res, next) => {
@@ -168,5 +183,9 @@ exports.postDeleteDish = (req, res, next) => {
       console.log("DELETED DISH");
       res.redirect("/admin/dish-management");
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);    
+    });
 };

@@ -10,6 +10,7 @@ const app = express();
 app.set("view engine", "ejs");
 const mainPageRoutes = require("./routes/main-page");
 const adminRoutes = require("./routes/admin");
+const errorController = require('./controllers/error');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
@@ -21,6 +22,15 @@ app.use((req, res, next) => {
 
 app.use(mainPageRoutes);
 app.use("/admin", adminRoutes);
+
+app.get('/500', errorController.get500);
+
+app.use(errorController.get404);
+
+app.use((err, req, res, next) => {
+  res.redirect('/500');
+});
+
 
 mongoose
   .connect(
