@@ -1,5 +1,7 @@
 const { body, validationResult } = require('express-validator');
 
+const filterIngredientsAndSteps  = require("../middleware/filterIngredientsAndSteps");
+
 const Dish = require("../models/dish");
 
 exports.getDishManagement = (req, res, next) => {
@@ -30,24 +32,15 @@ exports.postAddDish = (req, res, next) => {
   const name = req.body.name;
   const image = req.body.image;
   const type = req.body.type;
-  let ingredients = req.body["ingredient[]"];
-  let steps = req.body["step[]"];
-  const requirement = req.body.requirement.trim();
+  let ingredients = req.body.ingredients || [];
+  let steps = req.body.steps || [];
+  const requirement = req.body.requirement;
 
-  // Loại bỏ các giá trị null hoặc trống từ mảng ingredients
-  ingredients = ingredients.filter(
-    (ingredient) => ingredient !== null && ingredient.trim() !== ""
-  );
-  // Loại bỏ các giá trị null hoặc trống từ mảng steps
-  steps = steps.filter((step) => step !== null && step.trim() !== "");
+  filterIngredientsAndSteps;
 
   const errors = validationResult(req);
   if (!errors.isEmpty()){
     console.log(errors.array());
-
-    const validationErrors = errors.array();
-    const nameError = validationErrors.find(e => e.param === 'name');
-    console.log(nameError); // Log the nameError object
 
     return res.status(422).render("admin/edit-dish", {
       pageTitle: "Thêm món ăn",
@@ -114,19 +107,11 @@ exports.postEditDish = (req, res, next) => {
   const updatedName = req.body.name;
   const updatedImage = req.body.image;
   const updatedType = req.body.type;
-  let updatedIngredients = req.body["ingredient[]"];
-  let updatedSteps = req.body["step[]"];
-  const updatedRequirement = req.body.requirement.trim();
+  let updatedIngredients = req.body.ingredients || [];
+  let updatedSteps = req.body.steps || [];
+  const updatedRequirement = req.body.requirement;
 
-  // Loại bỏ các giá trị null hoặc trống từ mảng ingredients
-  updatedIngredients = updatedIngredients.filter(
-    (updatedIngredients) =>
-      updatedIngredients !== null && updatedIngredients.trim() !== ""
-  );
-  // Loại bỏ các giá trị null hoặc trống từ mảng steps
-  updatedSteps = updatedSteps.filter(
-    (updatedSteps) => updatedSteps !== null && updatedSteps.trim() !== ""
-  );
+  filterIngredientsAndSteps;
 
   const errors = validationResult(req);
   if (!errors.isEmpty()){
@@ -143,7 +128,8 @@ exports.postEditDish = (req, res, next) => {
         requirement: updatedRequirement,
         _id: dishId
       },
-      errorMessage: errors.array()[0].msg
+      errorMessage: errors.array()[0].msg,
+      validationErrors: errors.array()
     });
   }
 
