@@ -34,13 +34,32 @@ exports.getAddDish = (req, res, next) => {
 
 exports.postAddDish = (req, res, next) => {
   const name = req.body.name;
-  const image = req.body.image;
+  const image = req.file;
   const type = req.body.type;
   let ingredients = req.body.ingredients || [];
   let steps = req.body.steps || [];
   const requirement = req.body.requirement;
+  console.log(image);
 
   filterIngredientsAndSteps;
+
+  if (!image){
+    return res.status(422).render("admin/edit-dish", {
+      pageTitle: "Thêm món ăn",
+      path: "/admin/add-dish",
+      editing: false,
+      hasError: true,
+      dish: {
+        name: name,
+        type: type,
+        ingredients: ingredients,
+        steps: steps,
+        requirement: requirement
+      },
+      errorMessage: 'Hình ảnh có định dạng không hợp lệ.',
+      validationErrors: []
+    });
+  };
 
   const errors = validationResult(req);
   if (!errors.isEmpty()){
@@ -63,9 +82,11 @@ exports.postAddDish = (req, res, next) => {
     });
   }
 
+  const imageUrl = image.path;
+
   const dish = new Dish({
     name: name,
-    image: image,
+    image: imageUrl,
     type: type,
     ingredients: ingredients,
     steps: steps,
@@ -116,7 +137,7 @@ exports.getEditDish = (req, res, next) => {
 exports.postEditDish = (req, res, next) => {
   const dishId = req.body.dishId;
   const updatedName = req.body.name;
-  const updatedImage = req.body.image;
+  const updatedImage = req.file; 
   const updatedType = req.body.type;
   let updatedIngredients = req.body.ingredients || [];
   let updatedSteps = req.body.steps || [];
@@ -133,7 +154,7 @@ exports.postEditDish = (req, res, next) => {
       hasError: true,
       dish: {
         name: updatedName,
-        image: updatedImage,
+        type: updatedType,
         ingredients: updatedIngredients,
         steps: updatedSteps,
         requirement: updatedRequirement,
@@ -147,7 +168,10 @@ exports.postEditDish = (req, res, next) => {
   Dish.findById(dishId)
     .then((dish) => {
       dish.name = updatedName;
-      dish.image = updatedImage;
+      if (updatedImage) {
+        dish.image = updatedImage.path;
+
+      }
       dish.type = updatedType;
       dish.ingredients = updatedIngredients;
       dish.steps = updatedSteps;

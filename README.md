@@ -1,2 +1,2 @@
-npm install nodemon --save-dev<br>
+npm install 
 npm start

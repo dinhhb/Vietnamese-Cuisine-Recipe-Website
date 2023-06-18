@@ -19,13 +19,7 @@ router.post(
       .trim()
       .notEmpty()
       .withMessage("Tên món ăn không được bỏ trống"),
-    body("image")
-      .trim()
-      .notEmpty()
-      .withMessage("URL hình ảnh không được bỏ trống")
-      .isURL()
-      .withMessage("URL hình ảnh không hợp lệ"),
-      body("ingredients")
+    body("ingredients")
       .custom((value, { req }) => {
         // console.log("Ingredients:", value); // Debugging statement
         if (!Array.isArray(value) || value.length < 1) {
@@ -59,12 +53,6 @@ router.post(
       .trim()
       .notEmpty()
       .withMessage("Tên món ăn không được bỏ trống"),
-    body("image")
-      .trim()
-      .notEmpty()
-      .withMessage("URL hình ảnh không được bỏ trống")
-      .isURL()
-      .withMessage("URL hình ảnh không hợp lệ"),
       body("ingredients")
       .custom((value, { req }) => {
         // console.log("Ingredients:", value); // Debugging statement
