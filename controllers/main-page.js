@@ -1,5 +1,5 @@
 const Dish = require("../models/dish");
-const DISHES_PER_PAGE = 1;
+const DISHES_PER_PAGE = 5;
 
 exports.getDishes = (req, res, next) => {
   const page = +req.query.page || 1;

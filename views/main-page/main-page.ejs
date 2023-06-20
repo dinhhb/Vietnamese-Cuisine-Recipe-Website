@@ -113,29 +113,32 @@
 					</div>
 				</div>
 			</div>
-				
+			
 			<% if (dishes.length > 0) { %>
-				<div class="d-flex flex-wrap justify-content-center">
-					<% dishes.forEach(dish => { %>
-							<div class="gallery-single fix" style="margin-right: 30px;" onclick="window.location.href = '/dishes/<%= dish._id %>'">
-							
+                <div class="grid">
+                    <% for (let dish of dishes) { %>
+                        <article class="card product-item" onclick="window.location.href = '/dishes/<%= dish._id %>'">
+                            <header class="card__header">
+                                <h1 class="product__title">
+                                    <%= dish.name %>
+                                </h1>
+                            </header>
+                            <div class="card__image">
+                                <img src="/<%= dish.image %>" alt="<%= dish.name %>">
+                            </div>
+                            
+                            <div class="card__actions">
+                                <!-- <a href="/admin/edit-product" class="save-btn">Edit</a> -->
 								<form action="/favorite-dish" method="post">
-									<button class="heart-btn" type="submit"><i class="fa-solid fa-heart"></i></button>
+									<button class="save-btn" type="submit"><i class="fa-solid fa-bookmark"></i></button>
 									<input type="hidden" name="dishId" value="<%= dish._id  %>">
-								</form>
-		
-							<!-- <img src="/images/img-01.jpg" class="img-fluid" alt="Image"> -->
-							<img src="/<%= dish.image %>" class="img-fluid" alt="Image">
-							<div class="why-text">
-								<h4><%= dish.name %></h4>
-								<!-- <p>Phở bò là món ăn yêu thích của người Hà Nội</p> -->
-								<!-- <h5>Admin</h5> -->
-							</div>
-							
-							</div>
-						<!-- </div> -->
-					<% }) %>	
-				</div>
+								  </form>
+
+                            </div>
+                        </article>
+                        <% } %>
+                </div>
+
 				<div class="pagination text-center">
 					<nav aria-label="Page navigation">
 						<ul class="pagination">
