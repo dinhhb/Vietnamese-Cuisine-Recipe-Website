@@ -52,6 +52,36 @@
 						</div>
 				<% }) %>	
 				</div>
+				<div class="pagination text-center">
+					<nav aria-label="Page navigation">
+						<ul class="pagination">
+							<% if (currentPage !== 1 && previousPage !== 1) { %>
+								<li class="page-item">
+									<a class="page-link" href="/favorite-dish/?page=1">1</a>
+								</li>
+							<% } %>
+							<% if (hasPreviousPage) { %>
+								<li class="page-item">
+									<a class="page-link" href="/favorite-dish/?page=<%= previousPage %>"><%= previousPage %></a>
+								</li>
+							<% } %>
+							<li class="page-item active">
+								<span class="page-link"><%= currentPage %></span>
+							</li>
+							<% if (hasNextPage) { %>
+								<li class="page-item">
+									<a class="page-link" href="/favorite-dish/?page=<%= nextPage %>"><%= nextPage %></a>
+								</li>
+							<% } %>
+							<% if (currentPage !== lastPage && nextPage !== lastPage) { %>
+								<li class="page-item">
+									<a class="page-link" href="/favorite-dish/?page=<%= lastPage %>"><%= lastPage %></a>
+								</li>
+							<% } %>
+						</ul>
+					  </nav>
+				
+				</div>
 			<% } else { %>
 				<h1>Không tìm thấy món ăn!</h1>
 			<% } %>	

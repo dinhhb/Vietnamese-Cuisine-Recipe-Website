@@ -1,7 +1,18 @@
 const Dish = require("../models/dish");
+const DISHES_PER_PAGE = 1;
 
 exports.getDishes = (req, res, next) => {
+  const page = +req.query.page || 1;
+  let totalDishes;
+
   Dish.find()
+    .countDocuments()
+    .then((numDishes) => {
+      totalDishes = numDishes;
+      return Dish.find()
+        .skip((page - 1) * DISHES_PER_PAGE)
+        .limit(DISHES_PER_PAGE);
+    })
     .then((dishes) => {
       // console.log(dishes);
       res.render("main-page/main-page", {
@@ -9,6 +20,12 @@ exports.getDishes = (req, res, next) => {
         dishes: dishes,
         hasDishes: dishes.length > 0,
         path: "/",
+        currentPage: page,
+        hasNextPage: DISHES_PER_PAGE * page < totalDishes,
+        hasPreviousPage: page > 1,
+        nextPage: page + 1,
+        previousPage: page - 1,
+        lastPage: Math.ceil(totalDishes / DISHES_PER_PAGE)
       });
     })
     .catch((err) => {
@@ -33,26 +50,41 @@ exports.getDish = (req, res, next) => {
   });
 };
 
+
 exports.getFavoriteDish = (req, res, next) => {
   const favoriteDishIds = req.cookies.favoriteDish;
-  console.log(favoriteDishIds);
+  const page = +req.query.page || 1;
+  
   Dish.find()
     .then((dishes) => {
       const favoriteDishArray = dishes.filter((dish) => {
-        // So sánh String của favoriteDishIds với String của dish._id
         return favoriteDishIds.includes(dish._id.toString());
       });
+
+      const totalItems = favoriteDishArray.length;
+      const totalPages = Math.ceil(totalItems / DISHES_PER_PAGE);
+      const startIndex = (page - 1) * DISHES_PER_PAGE;
+      const endIndex = startIndex + DISHES_PER_PAGE;
+      const slicedDishes = favoriteDishArray.slice(startIndex, endIndex);
+
       res.render("main-page/favorite-dish", {
         path: "/favorite-dish",
-        dishes: favoriteDishArray,
+        dishes: slicedDishes,
+        currentPage: page,
+        hasNextPage: page < totalPages,
+        hasPreviousPage: page > 1,
+        nextPage: page + 1,
+        previousPage: page - 1,
+        lastPage: totalPages,
       });
     })
     .catch((err) => {
       const error = new Error(err);
       error.httpStatusCode = 500;
-      return next(error);    
+      return next(error);
     });
 };
+
 
 exports.postFavoriteDish = async (req, res, next) => {
   try {

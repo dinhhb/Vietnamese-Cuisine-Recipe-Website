@@ -116,26 +116,57 @@
 				
 			<% if (dishes.length > 0) { %>
 				<div class="d-flex flex-wrap justify-content-center">
-				<% dishes.forEach(dish => { %>
-						<div class="gallery-single fix" style="margin-right: 30px;" onclick="window.location.href = '/dishes/<%= dish._id %>'">
-						  
-							<form action="/favorite-dish" method="post">
-								<button class="heart-btn" type="submit"><i class="fa-solid fa-heart"></i></button>
-								<input type="hidden" name="dishId" value="<%= dish._id  %>">
-							</form>
-	
-						  <!-- <img src="/images/img-01.jpg" class="img-fluid" alt="Image"> -->
-						  <img src="/<%= dish.image %>" class="img-fluid" alt="Image">
-						  <div class="why-text">
-							<h4><%= dish.name %></h4>
-							<!-- <p>Phở bò là món ăn yêu thích của người Hà Nội</p> -->
-							<!-- <h5>Admin</h5> -->
-						  </div>
-						
-						</div>
-					<!-- </div> -->
-				<% }) %>	
+					<% dishes.forEach(dish => { %>
+							<div class="gallery-single fix" style="margin-right: 30px;" onclick="window.location.href = '/dishes/<%= dish._id %>'">
+							
+								<form action="/favorite-dish" method="post">
+									<button class="heart-btn" type="submit"><i class="fa-solid fa-heart"></i></button>
+									<input type="hidden" name="dishId" value="<%= dish._id  %>">
+								</form>
+		
+							<!-- <img src="/images/img-01.jpg" class="img-fluid" alt="Image"> -->
+							<img src="/<%= dish.image %>" class="img-fluid" alt="Image">
+							<div class="why-text">
+								<h4><%= dish.name %></h4>
+								<!-- <p>Phở bò là món ăn yêu thích của người Hà Nội</p> -->
+								<!-- <h5>Admin</h5> -->
+							</div>
+							
+							</div>
+						<!-- </div> -->
+					<% }) %>	
 				</div>
+				<div class="pagination text-center">
+					<nav aria-label="Page navigation">
+						<ul class="pagination">
+							<% if (currentPage !== 1 && previousPage !== 1) { %>
+								<li class="page-item">
+									<a class="page-link" href="/?page=1">1</a>
+								</li>
+							<% } %>
+							<% if (hasPreviousPage) { %>
+								<li class="page-item">
+									<a class="page-link" href="/?page=<%= previousPage %>"><%= previousPage %></a>
+								</li>
+							<% } %>
+							<li class="page-item active">
+								<span class="page-link"><%= currentPage %></span>
+							</li>
+							<% if (hasNextPage) { %>
+								<li class="page-item">
+									<a class="page-link" href="/?page=<%= nextPage %>"><%= nextPage %></a>
+								</li>
+							<% } %>
+							<% if (currentPage !== lastPage && nextPage !== lastPage) { %>
+								<li class="page-item">
+									<a class="page-link" href="/?page=<%= lastPage %>"><%= lastPage %></a>
+								</li>
+							<% } %>
+						</ul>
+					  </nav>
+				
+				</div>
+				
 			<% } else { %>
 				<h1>Không tìm thấy món ăn!</h1>
 			<% } %>	

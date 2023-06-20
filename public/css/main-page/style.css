@@ -1411,6 +1411,21 @@ blockquote {
     height: auto;
   }
 
+  .pagination {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .pagination a {
+    color: #000000;
+  }
+  
+  .pagination a:hover{
+    background: #cfa671;
+    color: #ffffff;
+  }
 
 
 
