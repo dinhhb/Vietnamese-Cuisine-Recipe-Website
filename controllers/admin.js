@@ -196,8 +196,8 @@ exports.getStatistic = (req, res, next) => {
   });
 };
 
-exports.postDeleteDish = (req, res, next) => {
-  const dishId = req.body.dishId;
+exports.deleteDish = (req, res, next) => {
+  const dishId = req.params.dishId;
   Dish.findByIdAndRemove(dishId)
     .then(() => {
       // Xóa dishId khỏi cookie
@@ -205,11 +205,9 @@ exports.postDeleteDish = (req, res, next) => {
       favoriteDishIds = favoriteDishIds.filter((id) => id !== dishId);
       res.cookie("favoriteDish", favoriteDishIds);
       console.log("DELETED DISH");
-      res.redirect("/admin/dish-management");
+      res.status(200).json({message: "Success"});
     })
     .catch((err) => {
-      const error = new Error(err);
-      error.httpStatusCode = 500;
-      return next(error);    
+      res.status(500).json({message: "Failed"});  
     });
 };

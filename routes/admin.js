@@ -79,6 +79,6 @@ router.post(
 
 router.get("/statistic", adminController.getStatistic);
 
-router.post("/delete-dish", adminController.postDeleteDish);
+router.delete("/dish/:dishId", adminController.deleteDish);
 
 module.exports = router;
