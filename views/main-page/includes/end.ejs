@@ -1,7 +1,7 @@
 <!-- Start Footer -->
 <footer class="footer-area bg-f">
     <div class="container">
-        <div class="row">
+        <div class="row justify-content-center ">
             <div class="col-lg-3 col-md-6">
                 <h3>Ẩm thực Việt</h3>
                 <p>Nơi trải nghiệm sự thăng hoa của ẩm thực, mang hương vị nhà hàng đến với gia đình bạn.</p>
@@ -70,7 +70,7 @@
 <script src="/js/main-page/custom.js"></script>
 
 <!-- Smooth scrolling script -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     $('a[href^="#"]').on('click', function(event) {
         var target = $(this.getAttribute('href'));
@@ -81,8 +81,22 @@
             }, 1500); // Change 1500 to adjust the scroll speed
         }
     });
-</script>
+</script> -->
 
+<script>
+    // Lấy đường dẫn trang hiện tại
+    var currentLocation = window.location.pathname;
+  
+    // Tìm và thêm lớp "active" cho mục có href tương ứng
+    var navItems = document.querySelectorAll('.nav-item');
+    for (var i = 0; i < navItems.length; i++) {
+      var link = navItems[i].querySelector('.nav-link');
+      if (link.getAttribute('href') === currentLocation) {
+        navItems[i].classList.add('active');
+      }
+    }
+  </script>
+  
 
 </body>
 </html>

@@ -32,17 +32,24 @@
                                         <hr>
                                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                                             <li class="nav-item">
-                                                <a class="nav-link active text-uppercase" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Món mặn</a>
+                                                <button class="nav-link active text-uppercase" id="home-tab" onclick="window.location.href='<%= path %>'" role="tab" aria-controls="home" aria-selected="true">Tất cả</button>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link text-uppercase" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Món ngọt</a>
+                                                <button class="nav-link text-uppercase" id="profile-tab" onclick="window.location.href='<%= path %>?filter=Món mặn'" role="tab" aria-controls="profile" aria-selected="false">Món mặn</button>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link text-uppercase" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Món canh</a>
+                                                <button class="nav-link text-uppercase" id="contact-tab" onclick="window.location.href='<%= path %>?filter=Món ngọt'" role="tab" aria-controls="contact" aria-selected="false">Món ngọt</button>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link text-uppercase" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Món tráng miệng</a>
+                                                <button class="nav-link text-uppercase" id="contact-tab" onclick="window.location.href='<%= path %>?filter=Món nước'" role="tab" aria-controls="contact" aria-selected="false">Món nước</button>
                                             </li>
+                                            
+                                              
+                                            <!-- <button onclick="window.location.href = '<%= path %>'" class="<%= filter === 'undefined' || filter === undefined  ? 'active' : '' %>">Tất cả</button>
+                                            <button onclick="window.location.href = '<%= path %>?filter=Món mặn'" class="<%= filter === 'Món mặn' ? 'active' : '' %>">Món mặn</button>
+                                            <button onclick="window.location.href = '<%= path %>?filter=Món ngọt'" class="<%= filter === 'Món ngọt' ? 'active' : '' %>">Món ngọt</button>
+                                            <button onclick="window.location.href = '<%= path %>?filter=Món nước'" class="<%= filter === 'Món nước' ? 'active' : '' %>">Món nước</button> -->
+
                                         </ul>
                                         <div class="tab-content" id="myTabContent">
                                             <div class="card-block px-0 py-3">
@@ -54,15 +61,15 @@
                                                                 <% for (let dish of dishes) { %>
                                                                     <tr class="unread">
                                                                         <td class="mb-1"><%= count %></td>
-                                                                        <!-- <td><img class="rounded-circle" style="width:40px;" src="/images/admin/user/avatar-1.jpg" alt="activity-user"></td> -->
                                                                         <td>
-                                                                            <h6 class="mb-1"><%= dish.name %></h6>
-                                                                            <!-- <p class="m-0">Lorem Ipsum is simply…</p> -->
+                                                                            <div class="d-flex align-items-center">
+                                                                                <img class="rounded thumbnail-image" style="width:80px;" src="/<%= dish.image %>" alt="dish-image">
+                                                                                <div class="ml-3">
+                                                                                    <h6 class="mb-1"><%= dish.name %></h6>
+                                                                                    <!-- <p class="m-0"><%= dish._id %></p> -->
+                                                                                </div>
+                                                                            </div>
                                                                         </td>
-                                                                        <!-- <td>admin</td> -->
-                                                                        <!-- <td>
-                                                                            <h6 class="text-muted"><i class="fas fa-circle text-c-green f-10 m-r-15"></i>11 MAY 12:56</h6>
-                                                                        </td> -->
                                                                         <td class="text-right">
                                                                             <a href="/dishes/<%= dish._id  %>" class="label theme-bg text-white f-12">Xem</a>
                                                                             <a href="/admin/edit-dish/<%= dish._id  %>?edit=true" class="label theme-bg2 text-white f-12">Sửa</a>

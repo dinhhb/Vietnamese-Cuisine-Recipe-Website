@@ -6264,6 +6264,11 @@ button.bg-dark:focus {
   border-radius: 50% !important;
 }
 
+.thumbnail-image {
+  width: 100px;
+  height: 80px;
+}
+
 .rounded-0 {
   border-radius: 0 !important;
 }

@@ -5,13 +5,21 @@ const filterIngredientsAndSteps  = require("../middleware/filterIngredientsAndSt
 const Dish = require("../models/dish");
 
 exports.getDishManagement = (req, res, next) => {
-  Dish.find()
+  const filter = req.query.filter || undefined;
+  let query = {};
+
+  if (filter && filter !== 'undefined') {
+    // console.log(filter);
+    query = {type: filter};
+  }
+  Dish.find(query)
     .then((dishes) => {
       res.render("admin/dish-management", {
         pageTitle: "Quản lý món ăn",
         dishes: dishes,
         hasDishes: dishes.length > 0,
         path: "/admin/dish-management",
+        filter: filter
       });
     })
     .catch(err => {

@@ -1,31 +1,46 @@
 const Dish = require("../models/dish");
 const DISHES_PER_PAGE = 9;
 
+exports.getMainPage = (req, res, next) => {
+  res.render("main-page/main-page", {
+    pageTitle: "Ẩm thực việt",
+    path: "/",
+  });
+};
+
 exports.getDishes = (req, res, next) => {
   const page = +req.query.page || 1;
   let totalDishes;
+  const filter = req.query.filter || undefined;
+  let query = {};
 
-  Dish.find()
+  if (filter && filter !== 'undefined') {
+    // console.log(filter);
+    query = {type: filter};
+  }
+
+  Dish.find(query)
     .countDocuments()
     .then((numDishes) => {
       totalDishes = numDishes;
-      return Dish.find()
+      return Dish.find(query)
         .skip((page - 1) * DISHES_PER_PAGE)
         .limit(DISHES_PER_PAGE);
     })
     .then((dishes) => {
       // console.log(dishes);
-      res.render("main-page/main-page", {
+      res.render("main-page/menu", {
         pageTitle: "Ẩm thực việt",
         dishes: dishes,
         hasDishes: dishes.length > 0,
-        path: "/",
+        path: "/menu",
         currentPage: page,
         hasNextPage: DISHES_PER_PAGE * page < totalDishes,
         hasPreviousPage: page > 1,
         nextPage: page + 1,
         previousPage: page - 1,
-        lastPage: Math.ceil(totalDishes / DISHES_PER_PAGE)
+        lastPage: Math.ceil(totalDishes / DISHES_PER_PAGE),
+        filter: filter
       });
     })
     .catch((err) => {
@@ -54,8 +69,15 @@ exports.getDish = (req, res, next) => {
 exports.getFavoriteDish = (req, res, next) => {
   const favoriteDishIds = req.cookies.favoriteDish;
   const page = +req.query.page || 1;
+  const filter = req.query.filter || undefined;
+  let query = {};
+
+  if (filter && filter !== 'undefined') {
+    // console.log(filter);
+    query = {type: filter};
+  }
   
-  Dish.find()
+  Dish.find(query)
     .then((dishes) => {
       const favoriteDishArray = dishes.filter((dish) => {
         return favoriteDishIds.includes(dish._id.toString());
@@ -76,6 +98,7 @@ exports.getFavoriteDish = (req, res, next) => {
         nextPage: page + 1,
         previousPage: page - 1,
         lastPage: totalPages,
+        filter: filter
       });
     })
     .catch((err) => {

@@ -6,52 +6,32 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="heading-title text-center">
-						<h2>CÔNG THỨC SỬ DỤNG NGUYÊN LIỆU <%= ingredient  %></h2>
-						<div class="blog-search-form">
-							<input name="search" placeholder="Nhập tên món ăn" type="text" >
-							<button class="search-btn">
-								<i class="fa fa-search" aria-hidden="true"></i>
-							</button>
-						</div>
+						<h2>Công thức sử dụng nguyên liệu "<%= ingredient  %>"</h2>
+						
 						<!-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting</p> -->
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="special-menu text-center">
-						<div class="button-group filter-button-group">
-							<button class="active" data-filter="*">Tất cả</button>
-							<button data-filter=".lunch">Món mặn</button>
-							<button data-filter=".lunch">Món ngọt</button>
-							<button data-filter=".dinner">Món nước</button>
-							<button data-filter=".dinner">Món tráng miệng</button>
-						</div>
-					</div>
-				</div>
-			</div>
+			
 				
 			<% if (dishes.length > 0) { %>
-				<div class="d-flex flex-wrap justify-content-center">
-				<% dishes.forEach(dish => { %>
-						<div class="gallery-single fix" style="margin-right: 30px;" onclick="window.location.href = '/dishes/<%= dish._id %>'">
-							
-							<form action="/delete-favorite-dish" method="post">
-								<button class="delete-btn" type="submit"><i class="fa-solid fa-trash"></i></button>
-								<input type="hidden" name="dishId" value="<%= dish._id  %>">
-							</form>
+				<div class="grid">
+                    <% for (let dish of dishes) { %>
+                        <article class="card product-item" onclick="window.location.href = '/dishes/<%= dish._id %>'">
+                            <header class="card__header">
+                                <h1 class="product__title">
+                                    <%= dish.name %>
+                                </h1>
+                            </header>
+                            <div class="card__image">
+                                <img src="/<%= dish.image %>" alt="<%= dish.name %>">
+                            </div>
+							<div class="card__actions">
 
-							<!-- <img src="/images/img-01.jpg" class="img-fluid" alt="Image"> -->
-							<img src="/<%= dish.image %>" class="img-fluid" alt="Image">
-							<div class="why-text">
-								<h4><%= dish.name %></h4>
-								<!-- <p>Phở bò là món ăn yêu thích của người Hà Nội</p> -->
-								<!-- <h5>Admin</h5> -->
-							</div>
-						
-						</div>
-				<% }) %>	
-				</div>
+                            </div>
+                        </article>
+                        <% } %>
+                </div>
 			<% } else { %>
 				<h1>Không tìm thấy món ăn!</h1>
 			<% } %>	

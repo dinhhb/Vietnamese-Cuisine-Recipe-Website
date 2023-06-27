@@ -6,7 +6,9 @@ const mainPageController = require('../controllers/main-page');
 
 const router = express.Router();
 
-router.get('/', mainPageController.getDishes);
+router.get('/', mainPageController.getMainPage);
+
+router.get('/menu', mainPageController.getDishes);
 
 router.get('/dishes/:dishId', mainPageController.getDish);
 
