@@ -21,11 +21,18 @@
                                         <div class="management-search">
                                             <div class="management-search-left"><h5>Quản lý món ăn</h5>
                                             </div>
-                                            <div class="management-search-right">
+                                            <!-- <div class="management-search-right">
                                                 <input type="search" placeholder="Nhập tên món ăn" id="site-search" name="q" >
                                                 <i class="fas fa-search"></i>
-                                            </div>
-                                            
+                                            </div> -->
+                                            <form action="/dish-management-search" method="GET">
+                                                <div class="management-search-right">
+                                                    <input name="search" placeholder='Nhập tên món ăn' d="site-search" name="q">								
+                                                    <button class="search-btn">
+                                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                                    </button>
+                                                </div>
+                                            </form>
 
                                         </div>
                                         

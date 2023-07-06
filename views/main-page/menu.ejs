@@ -7,12 +7,14 @@
 				<div class="col-lg-12">
 					<div class="heading-title text-center">
 						<h2>THỰC ĐƠN</h2>
-						<div class="blog-search-form">
-							<input name="search" placeholder="Nhập tên món ăn" type="text">
-							<button class="search-btn">
-								<i class="fa fa-search" aria-hidden="true"></i>
-							</button>
-						</div>
+						<form action="/menu-search" method="GET">
+							<div class="blog-search-form">
+								<input name="search" placeholder="<%= searchTerm !== null ? searchTerm : 'Nhập tên món ăn' %>" type="text">								
+								<button class="search-btn">
+									<i class="fa fa-search" aria-hidden="true"></i>
+								</button>
+							</div>
+						</form>	
 						<!-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting</p> -->
 					</div>
 				</div>

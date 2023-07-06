@@ -22,4 +22,6 @@ router.post('/delete-favorite-dish', mainPageController.postDeleteFavoriteDish);
 
 router.get('/dish-by-ingredient', mainPageController.getDishByIngredient);
 
+router.get('/menu-search', mainPageController.searchDishes);
+
 module.exports = router;

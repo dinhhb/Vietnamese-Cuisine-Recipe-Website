@@ -2,11 +2,19 @@
     <div class="col-lg-12">
         <div class="special-menu text-center">
             <div class="button-group filter-button-group">
-                <button onclick="window.location.href = '<%= path %>'" class="<%= filter === 'undefined' || filter === undefined  ? 'active' : '' %>">Tất cả</button>
-                <button onclick="window.location.href = '<%= path %>?filter=Món mặn'" class="<%= filter === 'Món mặn' ? 'active' : '' %>">Món mặn</button>
-                <button onclick="window.location.href = '<%= path %>?filter=Món ngọt'" class="<%= filter === 'Món ngọt' ? 'active' : '' %>">Món ngọt</button>
-                <button onclick="window.location.href = '<%= path %>?filter=Món nước'" class="<%= filter === 'Món nước' ? 'active' : '' %>">Món nước</button>
-                <!-- <button data-filter=".dinner">Món tráng miệng</button> -->
+                <% if (searchTerm !== null) { %>
+                    <button onclick="window.location.href = '<%= `${path}?search=${searchTerm}` %>'" class="<%= filter === 'undefined' || filter === undefined  ? 'active' : '' %>">Tất cả</button>
+                    <button onclick="window.location.href = '<%= `${path}?search=${searchTerm}&filter=Món mặn` %>'" class="<%= filter === 'Món mặn' ? 'active' : '' %>">Món mặn</button>
+                    <button onclick="window.location.href = '<%= `${path}?search=${searchTerm}&filter=Món ngọt` %>'" class="<%= filter === 'Món ngọt' ? 'active' : '' %>">Món ngọt</button>
+                    <button onclick="window.location.href = '<%= `${path}?search=${searchTerm}&filter=Món nước` %>'" class="<%= filter === 'Món nước' ? 'active' : '' %>">Món nước</button>
+
+                <% } else { %>    
+                    <button onclick="window.location.href = '<%= path %>'" class="<%= filter === 'undefined' || filter === undefined  ? 'active' : '' %>">Tất cả</button>
+                    <button onclick="window.location.href = '<%= path %>?filter=Món mặn'" class="<%= filter === 'Món mặn' ? 'active' : '' %>">Món mặn</button>
+                    <button onclick="window.location.href = '<%= path %>?filter=Món ngọt'" class="<%= filter === 'Món ngọt' ? 'active' : '' %>">Món ngọt</button>
+                    <button onclick="window.location.href = '<%= path %>?filter=Món nước'" class="<%= filter === 'Món nước' ? 'active' : '' %>">Món nước</button>
+                    <!-- <button data-filter=".dinner">Món tráng miệng</button> -->
+                <% } %>
             </div>
               
         </div>

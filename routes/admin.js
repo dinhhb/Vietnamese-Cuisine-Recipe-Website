@@ -81,4 +81,6 @@ router.get("/statistic", adminController.getStatistic);
 
 router.delete("/dish/:dishId", adminController.deleteDish);
 
+router.get('/dish-management-search', adminController.searchDishes);
+
 module.exports = router;

@@ -1759,13 +1759,18 @@ p.text-muted {
   display: none;
 }
 .pcoded-header .main-search .input-group .search-btn {
-  border-radius: 50%;
+  border-radius: 100%;
   padding: 0;
   background: transparent;
   border-color: transparent;
   -webkit-box-shadow: none;
           box-shadow: none;
 }
+
+.search-btn:hover {
+  background-color: #cfa671; /* Màu nền khi hover */
+}
+
 .pcoded-header .main-search .input-group .form-control {
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;

@@ -40,7 +40,8 @@ exports.getDishes = (req, res, next) => {
         nextPage: page + 1,
         previousPage: page - 1,
         lastPage: Math.ceil(totalDishes / DISHES_PER_PAGE),
-        filter: filter
+        filter: filter,
+        searchTerm: null
       });
     })
     .catch((err) => {
@@ -98,7 +99,8 @@ exports.getFavoriteDish = (req, res, next) => {
         nextPage: page + 1,
         previousPage: page - 1,
         lastPage: totalPages,
-        filter: filter
+        filter: filter,
+        searchTerm: null
       });
     })
     .catch((err) => {
@@ -154,7 +156,6 @@ exports.postDeleteFavoriteDish = async (req, res, next) => {
   }
 };
 
-
 // exports.getClearFavoriteDish = (req, res, next) => {
 //   res.clearCookie("favoriteDish");
 //   res.redirect("/");
@@ -176,5 +177,66 @@ exports.getDishByIngredient = (req, res, next) => {
       const error = new Error(err);
       error.httpStatusCode = 500;
       return next(error);    
+    });
+};
+
+// exports.searchDishes = async (req, res, next) => {
+//   try {
+//     const searchTerm = req.query.search; // Lấy giá trị từ query string, ví dụ ?searchTerm=keyword
+//     // console.log(searchTerm);
+
+//     // Thực hiện truy vấn tìm kiếm trong CSDL sử dụng Mongoose
+//     const dishes = await Dish.find({ name: searchTerm });
+//     // console.log(dishes);
+//     res.render('main-page/menu', { dishes, searchTerm }); // Trả về kết quả tìm kiếm cho client, ví dụ render template 'searchResults' với danh sách dishes và searchTerm
+//   } catch (err) {
+//     const error = new Error(err);
+//     error.httpStatusCode = 500;
+//     return next(error);
+//   }
+// };
+
+exports.searchDishes = (req, res, next) => {
+  const page = +req.query.page || 1;
+  let totalDishes;
+  const filter = req.query.filter || undefined;
+  const searchTerm = req.query.search;
+  const searchRegex = new RegExp(searchTerm, 'i'); 
+  let query = {name: searchRegex};
+
+  if (filter && filter !== 'undefined') {
+    // console.log(filter);
+    query = {type: filter, name: searchRegex};
+  }
+
+  Dish.find(query)
+    .countDocuments()
+    .then((numDishes) => {
+      totalDishes = numDishes;
+      return Dish.find(query)
+        .skip((page - 1) * DISHES_PER_PAGE)
+        .limit(DISHES_PER_PAGE);
+    })
+    .then((dishes) => {
+      // console.log(dishes);
+      res.render("main-page/menu", {
+        pageTitle: "Ẩm thực việt",
+        dishes: dishes,
+        hasDishes: dishes.length > 0,
+        path: "/menu-search",
+        currentPage: page,
+        hasNextPage: DISHES_PER_PAGE * page < totalDishes,
+        hasPreviousPage: page > 1,
+        nextPage: page + 1,
+        previousPage: page - 1,
+        lastPage: Math.ceil(totalDishes / DISHES_PER_PAGE),
+        filter: filter,
+        searchTerm: searchTerm
+      });
+    })
+    .catch((err) => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };

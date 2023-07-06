@@ -219,3 +219,42 @@ exports.deleteDish = (req, res, next) => {
       res.status(500).json({message: "Failed"});  
     });
 };
+
+exports.searchDishes = (req, res, next) => {
+  const filter = req.query.filter || undefined;
+  const searchTerm = req.query.search;
+  console.log(searchTerm);
+  const searchRegex = new RegExp(searchTerm, 'i'); 
+  let query = {name: searchRegex};
+
+  if (filter && filter !== 'undefined') {
+    // console.log(filter);
+    query = {type: filter, name: searchRegex};
+    console.log(query);
+  }
+
+  Dish.find(query)
+    .countDocuments()
+    .then((numDishes) => {
+      totalDishes = numDishes;
+      return Dish.find(query)
+        .skip((page - 1) * DISHES_PER_PAGE)
+        .limit(DISHES_PER_PAGE);
+    })
+    .then((dishes) => {
+      // console.log(dishes);
+      res.render("/admin/dish-management", {
+        pageTitle: "Quản lý món ăn",
+        dishes: dishes,
+        hasDishes: dishes.length > 0,
+        path: "/admin/dish-management-search",
+        filter: filter,
+        searchTerm: searchTerm
+      });
+    })
+    .catch((err) => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    });
+};
