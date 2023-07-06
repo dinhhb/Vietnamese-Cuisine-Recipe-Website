@@ -47,7 +47,7 @@
                                                                         <% } %>
                                                                         <label class="bold-label">Tên món ăn</label>
                                                                         <input type="text" name="name"
-                                                                            class="form-control" placeholder="phở"
+                                                                            class="form-control" placeholder="Phở"
                                                                             value="<% if (editing || hasError) { %><%= dish.name %><% } %>">
                                                                         <hr style="border-top: 1px solid #ccc;">
                                                                     </div>
@@ -65,7 +65,7 @@
                                                                             <label>Nguyên liệu <%= i + 1 %> <%= i === 0 ? '(Bắt buộc)' : '(Tuỳ chọn)' %></label>
                                                                             <input type="text" name="ingredients"
                                                                                 class="form-control"
-                                                                                placeholder="Định dạng: 'Số lượng,Đơn vị,Nguyên liệu'"
+                                                                                placeholder="Thịt lơn"
                                                                                 value="<% if (editing || hasError) { %><%= dish.ingredients[i] || '' %><% } %>"
                                                                                 style="margin-bottom: 15px;">
                                                                         <% } %>
@@ -128,7 +128,7 @@
                                                                         <label class="bold-label">Quy trình chế biến</label><br>
                                                                         <% for (let i=0; i < 10; i++) { %>
                                                                             <label>Bước <%= i + 1 %> <%= i === 0 ? '(Bắt buộc)' : '(Tuỳ chọn)' %></label>
-                                                                            <textarea class="form-control" placeholder="abc" name="steps" style="margin-bottom: 15px;"><% if (editing || hasError) { %><%= dish.steps[i] || '' %><% } %></textarea>
+                                                                            <textarea class="form-control" placeholder="Đun sôi nước" name="steps" style="margin-bottom: 15px;"><% if (editing || hasError) { %><%= dish.steps[i] || '' %><% } %></textarea>
                                                                         <% } %>
                                                                         <hr style="border-top: 1px solid #ccc;">
                                                                         
@@ -146,7 +146,7 @@
                                                                         <label class="bold-label">Yêu cầu cảm quan</label>
                                                                         <textarea name="requirement"
                                                                         class="form-control"
-                                                                        placeholder="Ngon"><% if (editing || hasError) { %><%= dish.requirement %><% } %></textarea>
+                                                                        placeholder="Thịt chín đều"><% if (editing || hasError) { %><%= dish.requirement %><% } %></textarea>
 
                                                                     </div>
                                                                 </div>

@@ -101,7 +101,7 @@
 <script>
     var currentLocation = window.location.pathname;
   
-    if (currentLocation === '/menu-search') {
+    if (currentLocation === '/menu-search' ) {
       var menuNavItem = document.getElementById('menuNavItem');
       menuNavItem.classList.add('active');
     }
@@ -115,7 +115,15 @@
       menuNavItem.classList.add('active');
     }
   </script>
-  
+    
+    <script>
+        var currentLocation = window.location.pathname;
+      
+        if (currentLocation.startsWith('/dish-by-ingredient')) {
+          var menuNavItem = document.getElementById('menuNavItem');
+          menuNavItem.classList.add('active');
+        }
+      </script>
 
 </body>
 </html>

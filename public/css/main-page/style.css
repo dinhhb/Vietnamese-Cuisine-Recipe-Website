@@ -1509,7 +1509,9 @@ blockquote {
 .product__title {
     font-size: 1.2rem;
     text-align: center;
-}
+    /* font-weight: bold; */
+  }
+  
 
 .product__price {
     text-align: center;
