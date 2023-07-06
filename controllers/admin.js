@@ -47,27 +47,27 @@ exports.postAddDish = (req, res, next) => {
   let ingredients = req.body.ingredients || [];
   let steps = req.body.steps || [];
   const requirement = req.body.requirement;
-  console.log(image);
+  // console.log(image);
 
   filterIngredientsAndSteps;
 
-  if (!image){
-    return res.status(422).render("admin/edit-dish", {
-      pageTitle: "Thêm món ăn",
-      path: "/admin/add-dish",
-      editing: false,
-      hasError: true,
-      dish: {
-        name: name,
-        type: type,
-        ingredients: ingredients,
-        steps: steps,
-        requirement: requirement
-      },
-      errorMessage: 'Hình ảnh có định dạng không hợp lệ.',
-      validationErrors: []
-    });
-  };
+  // if (!image){
+  //   return res.status(422).render("admin/edit-dish", {
+  //     pageTitle: "Thêm món ăn",
+  //     path: "/admin/add-dish",
+  //     editing: false,
+  //     hasError: true,
+  //     dish: {
+  //       name: name,
+  //       type: type,
+  //       ingredients: ingredients,
+  //       steps: steps,
+  //       requirement: requirement
+  //     },
+  //     errorMessage: 'Hình ảnh có định dạng không hợp lệ.',
+  //     validationErrors: []
+  //   });
+  // };
 
   const errors = validationResult(req);
   if (!errors.isEmpty()){

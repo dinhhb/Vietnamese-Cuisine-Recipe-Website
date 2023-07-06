@@ -10656,3 +10656,6 @@ div.code-toolbar > .toolbar span:hover {
   color: red;
 }
 
+label.bold-label {
+  font-weight: bold;
+}
