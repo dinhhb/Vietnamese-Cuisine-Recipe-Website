@@ -1682,7 +1682,7 @@ pre code {
 .table-dark,
 .table-dark > th,
 .table-dark > td {
-  background-color: #c6c8ca;
+  background-color: #c6c8ca;active
 }
 
 .table-hover .table-dark:hover {
@@ -3917,8 +3917,8 @@ input[type="button"].btn-block {
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
   color: #495057;
-  background-color: #fff;
-  border-color: #dee2e6 #dee2e6 #fff;
+  background-color: #cfa671;
+  border-color: #fff;
 }
 
 .nav-tabs .dropdown-menu {

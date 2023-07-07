@@ -11,7 +11,8 @@
   "author": "Maximilian Schwarzmüller",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^2.0.22"
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "nodemon": "^1.14.9"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
