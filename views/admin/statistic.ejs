@@ -14,6 +14,7 @@
                                 <div class="col-md-12">
                                     <div class="page-header-title">
                                         <h5 class="m-b-10">Thống kê</h5>
+                                        <hr style="border-top: 1px solid #ccc;">
                             </div>
                         </div>
                     </div>
@@ -30,17 +31,26 @@
                                             <h5>Món ăn</h5>
                                         </div>
                                         <div class="card-block">
-                                            <div id="morris-donut-chart" style="height:300px"></div>
+                                            <ul>
+                                                <li>Tổng số món ăn: <%= dishCount %></li>
+                                                <li>Số lượng món ăn theo từng loại:</li>
+                                            </ul>
+                                            <div id="dish-donut-chart" style="height:300px"></div>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-xl-6">
                                     <div class="card">
                                         <div class="card-header">
                                             <h5>Nguyên liệu</h5>
                                         </div>
                                         <div class="card-block">
-                                            <div id="morris-donut-chart" style="height:300px"></div>
+                                            <ul>
+                                                <li>Tổng số nguyên liệu: <%= ingredientCount %></li>
+                                                <li>Số lượng món ăn sử dụng nguyên liệu (từ 2 lần trở lên):</li>
+                                            </ul>
+                                            <div id="ingredient-donut-chart" style="height:300px"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -53,6 +63,8 @@
             </div>
         </div>
     </div>
+    <input type="hidden" id="dishData" value="<%= encodeURIComponent(dishData) %>">
+    <input type="hidden" id="ingredientData" value="<%= encodeURIComponent(ingredientData) %>">
     <!-- [ Main Content ] end -->
 
     <%- include('includes/end.ejs') %>
