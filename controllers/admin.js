@@ -198,11 +198,89 @@ exports.postEditDish = (req, res, next) => {
 };
 
 exports.getStatistic = (req, res, next) => {
-  res.render("admin/statistic", {
-    pageTitle: "Xem thống kê",
-    path: "/admin/statistic",
-  });
+  let dishData;
+  let ingredientData;
+  let dishCount;
+  let ingredientCount;
+
+  Dish.aggregate([
+    {
+      $group: {
+        _id: "$type",
+        count: { $sum: 1 }
+      }
+    }
+  ])
+    .then(results => {
+      dishData = results.map(result => ({
+        value: result.count,
+        label: result._id
+      }));
+
+      return Dish.aggregate([
+        {
+          $unwind: "$ingredients"
+        },
+        {
+          $group: {
+            _id: "$ingredients",
+            count: { $sum: 1 }
+          }
+        }
+      ]);
+    })
+    .then(results => {
+      ingredientData = results
+        .filter(result => result.count > 2)
+        .map(result => ({
+          value: result.count,
+          label: result._id
+        }));
+
+      return Dish.countDocuments();
+    })
+    .then(count => {
+      dishCount = count;
+
+      return Dish.aggregate([
+        {
+          $project: {
+            ingredientCount: { $size: "$ingredients" }
+          }
+        },
+        {
+          $group: {
+            _id: null,
+            count: { $sum: "$ingredientCount" }
+          }
+        }
+      ]);
+    })
+    .then(results => {
+      if (results.length > 0) {
+        ingredientCount = results[0].count;
+      } else {
+        ingredientCount = 0;
+      }
+
+      res.render("admin/statistic", {
+        pageTitle: "Xem thống kê",
+        path: "/admin/statistic",
+        dishData: JSON.stringify(dishData),
+        ingredientData: JSON.stringify(ingredientData),
+        dishCount: dishCount,
+        ingredientCount: ingredientCount
+      });
+    })
+    .catch(err => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    });
 };
+
+
+
 
 exports.deleteDish = (req, res, next) => {
   const dishId = req.params.dishId;
@@ -226,29 +304,28 @@ exports.searchDishes = (req, res, next) => {
   console.log(searchTerm);
   const searchRegex = new RegExp(searchTerm, 'i'); 
   let query = {name: searchRegex};
+  console.log(query);
 
-  if (filter && filter !== 'undefined') {
-    // console.log(filter);
-    query = {type: filter, name: searchRegex};
-    console.log(query);
-  }
+  // if (filter && filter !== 'undefined') {
+  //   // console.log(filter);
+  //   query = {type: filter, name: searchRegex};
+  //   console.log(query);
+  // }
 
   Dish.find(query)
     .countDocuments()
     .then((numDishes) => {
       totalDishes = numDishes;
-      return Dish.find(query)
-        .skip((page - 1) * DISHES_PER_PAGE)
-        .limit(DISHES_PER_PAGE);
+      return Dish.find(query);
     })
     .then((dishes) => {
-      // console.log(dishes);
-      res.render("/admin/dish-management", {
+      console.log(dishes);
+      res.render("admin/dish-management", {
         pageTitle: "Quản lý món ăn",
         dishes: dishes,
         hasDishes: dishes.length > 0,
         path: "/admin/dish-management-search",
-        filter: filter,
+        // filter: filter,
         searchTerm: searchTerm
       });
     })
