@@ -1,0 +1,87 @@
+<hr>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <% if (searchTerm !==null) { %>
+        <li class="nav-item">
+            <button class="nav-link <%= filter === undefined || filter === 'undefined' ? 'active' : '' %>" id="home-tab"
+                onclick="window.location.href = '<%= `${path}?search=${searchTerm}` %>'" role="tab" aria-controls="home"
+                aria-selected="true">Tất cả</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link <%= filter === 'Rau, củ, quả' ? 'active' : '' %>" id="profile-tab"
+                onclick="window.location.href = '<%= `${path}?search=${searchTerm}&filter=Rau củ quả` %>'" role="tab"
+                aria-controls="profile" aria-selected="false">Rau, củ, quả</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link <%= filter === 'Thuỷ sản' ? 'active' : '' %>" id="contact-tab"
+                onclick="window.location.href = '<%= `${path}?search=${searchTerm}&filter=Thuỷ sản` %>'" role="tab"
+                aria-controls="contact" aria-selected="false">Thuỷ sản</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link <%= filter === 'Gia súc' ? 'active' : '' %>" id="contact-tab"
+                onclick="window.location.href = '<%= `${path}?search=${searchTerm}&filter=Gia súc` %>'" role="tab"
+                aria-controls="contact" aria-selected="false">Gia súc</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link <%= filter === 'Gia cầm' ? 'active' : '' %>" id="contact-tab"
+                onclick="window.location.href = '<%= `${path}?search=${searchTerm}&filter=Gia cầm` %>'" role="tab"
+                aria-controls="contact" aria-selected="false">Gia cầm</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link <%= filter === 'Lương thực' ? 'active' : '' %>" id="contact-tab"
+                onclick="window.location.href = '<%= `${path}?search=${searchTerm}&filter=Lương thực` %>'" role="tab"
+                aria-controls="contact" aria-selected="false">Lương thực</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link <%= filter === 'Bánh, kẹo, mứt' ? 'active' : '' %>" id="contact-tab"
+                onclick="window.location.href = '<%= `${path}?search=${searchTerm}&filter=Bánh kẹo mứt` %>'" role="tab"
+                aria-controls="contact" aria-selected="false">Bánh, kẹo, mứt</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link <%= filter === 'Giải khát' ? 'active' : '' %>" id="contact-tab"
+                onclick="window.location.href = '<%= `${path}?search=${searchTerm}&filter=Giải khát` %>'" role="tab"
+                aria-controls="contact" aria-selected="false">Giải khát</button>
+        </li>
+
+        <% } else { %>
+            <li class="nav-item">
+                <button class="nav-link <%= filter === undefined || filter === 'undefined' ? 'active' : '' %>"
+                    id="home-tab" onclick="window.location.href='<%= path %>'" role="tab" aria-controls="home"
+                    aria-selected="true">Tất cả</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link <%= filter === 'Rau, củ, quả' ? 'active' : '' %>" id="profile-tab"
+                    onclick="window.location.href='<%= path %>?filter=Rau củ quả'" role="tab" aria-controls="profile"
+                    aria-selected="false">Rau, củ, quả</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link <%= filter === 'Thuỷ sản' ? 'active' : '' %>" id="contact-tab"
+                    onclick="window.location.href='<%= path %>?filter=Thuỷ sản'" role="tab" aria-controls="contact"
+                    aria-selected="false">Thuỷ sản</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link <%= filter === 'Gia súc' ? 'active' : '' %>" id="contact-tab"
+                    onclick="window.location.href='<%= path %>?filter=Gia súc'" role="tab" aria-controls="contact"
+                    aria-selected="false">Gia súc</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link <%= filter === 'Gia cầm' ? 'active' : '' %>" id="contact-tab"
+                    onclick="window.location.href = '<%= `${path}?search=${searchTerm}&filter=Gia cầm` %>'" role="tab"
+                    aria-controls="contact" aria-selected="false">Gia cầm</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link <%= filter === 'Lương thực' ? 'active' : '' %>" id="contact-tab"
+                    onclick="window.location.href = '<%= `${path}?search=${searchTerm}&filter=Lương thực` %>'" role="tab"
+                    aria-controls="contact" aria-selected="false">Lương thực</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link <%= filter === 'Bánh, kẹo, mứt' ? 'active' : '' %>" id="contact-tab"
+                    onclick="window.location.href = '<%= `${path}?search=${searchTerm}&filter=Bánh kẹo mứt` %>'" role="tab"
+                    aria-controls="contact" aria-selected="false">Bánh, kẹo, mứt</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link <%= filter === 'Giải khát' ? 'active' : '' %>" id="contact-tab"
+                    onclick="window.location.href = '<%= `${path}?search=${searchTerm}&filter=Giải khát` %>'" role="tab"
+                    aria-controls="contact" aria-selected="false">Giải khát</button>
+            </li>
+            <% } %>
+</ul>

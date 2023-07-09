@@ -404,6 +404,7 @@ button:focus{
     padding: 12px 40px;
     border: none;
     border-radius: 4px;
+    width: 200px; /* Chiều dài cố định của button */
 }
 
 .filter-button-group button:hover {
