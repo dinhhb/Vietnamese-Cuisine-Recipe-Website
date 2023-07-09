@@ -27,7 +27,7 @@
                                             </div> -->
                                             <form action="/admin/dish-management-search" method="GET">
                                                 <div class="management-search-right">
-                                                    <input name="search" placeholder='Nhập tên món ăn' d="site-search" name="q">								
+                                                    <input name="search" placeholder="<%= searchTerm !== null ? searchTerm : 'Nhập tên món ăn' %>" d="site-search" name="q">								
                                                     <button class="search-btn">
                                                         <i class="fa fa-search" aria-hidden="true"></i>
                                                     </button>
@@ -38,25 +38,35 @@
                                         
                                         <hr>
                                         <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                        <li class="nav-item">
-                                            <button class="nav-link <%= filter === undefined || filter === 'undefined' ? 'active' : '' %>" id="home-tab" onclick="window.location.href='<%= path %>'" role="tab" aria-controls="home" aria-selected="true">Tất cả</button>
-                                        </li>
-                                        <li class="nav-item">
-                                            <button class="nav-link <%= filter === 'Món mặn' ? 'active' : '' %>" id="profile-tab" onclick="window.location.href='<%= path %>?filter=Món mặn'" role="tab" aria-controls="profile" aria-selected="false">Món mặn</button>
-                                        </li>
-                                        <li class="nav-item">
-                                            <button class="nav-link <%= filter === 'Món ngọt' ? 'active' : '' %>" id="contact-tab" onclick="window.location.href='<%= path %>?filter=Món ngọt'" role="tab" aria-controls="contact" aria-selected="false">Món ngọt</button>
-                                        </li>
-                                        <li class="nav-item">
-                                            <button class="nav-link <%= filter === 'Món nước' ? 'active' : '' %>" id="contact-tab" onclick="window.location.href='<%= path %>?filter=Món nước'" role="tab" aria-controls="contact" aria-selected="false">Món nước</button>
-                                        </li>
+                                        <% if (searchTerm !== null) { %>
+                                            <li class="nav-item">
+                                                <button class="nav-link <%= filter === undefined || filter === 'undefined' ? 'active' : '' %>" id="home-tab" onclick="window.location.href = '<%= `${path}?search=${searchTerm}` %>'" role="tab" aria-controls="home" aria-selected="true">Tất cả</button>
+                                            </li>
+                                            <li class="nav-item">
+                                                <button class="nav-link <%= filter === 'Món mặn' ? 'active' : '' %>" id="profile-tab" onclick="window.location.href = '<%= `${path}?search=${searchTerm}&filter=Món mặn` %>'" role="tab" aria-controls="profile" aria-selected="false">Món mặn</button>
+                                            </li>
+                                            <li class="nav-item">
+                                                <button class="nav-link <%= filter === 'Món ngọt' ? 'active' : '' %>" id="contact-tab" onclick="window.location.href = '<%= `${path}?search=${searchTerm}&filter=Món ngọt` %>'" role="tab" aria-controls="contact" aria-selected="false">Món ngọt</button>
+                                            </li>
+                                            <li class="nav-item">
+                                                <button class="nav-link <%= filter === 'Món nước' ? 'active' : '' %>" id="contact-tab" onclick="window.location.href = '<%= `${path}?search=${searchTerm}&filter=Món nước` %>'" role="tab" aria-controls="contact" aria-selected="false">Món nước</button>
+                                            </li>
+                                        <% } else { %>
+                                            <li class="nav-item">
+                                                <button class="nav-link <%= filter === undefined || filter === 'undefined' ? 'active' : '' %>" id="home-tab" onclick="window.location.href='<%= path %>'" role="tab" aria-controls="home" aria-selected="true">Tất cả</button>
+                                            </li>
+                                            <li class="nav-item">
+                                                <button class="nav-link <%= filter === 'Món mặn' ? 'active' : '' %>" id="profile-tab" onclick="window.location.href='<%= path %>?filter=Món mặn'" role="tab" aria-controls="profile" aria-selected="false">Món mặn</button>
+                                            </li>
+                                            <li class="nav-item">
+                                                <button class="nav-link <%= filter === 'Món ngọt' ? 'active' : '' %>" id="contact-tab" onclick="window.location.href='<%= path %>?filter=Món ngọt'" role="tab" aria-controls="contact" aria-selected="false">Món ngọt</button>
+                                            </li>
+                                            <li class="nav-item">
+                                                <button class="nav-link <%= filter === 'Món nước' ? 'active' : '' %>" id="contact-tab" onclick="window.location.href='<%= path %>?filter=Món nước'" role="tab" aria-controls="contact" aria-selected="false">Món nước</button>
+                                            </li>
+                                        <% } %>
                                         </ul>
-                                            <!-- <button onclick="window.location.href = '<%= path %>'" class="<%= filter === 'undefined' || filter === undefined  ? 'active' : '' %>">Tất cả</button>
-                                            <button onclick="window.location.href = '<%= path %>?filter=Món mặn'" class="<%= filter === 'Món mặn' ? 'active' : '' %>">Món mặn</button>
-                                            <button onclick="window.location.href = '<%= path %>?filter=Món ngọt'" class="<%= filter === 'Món ngọt' ? 'active' : '' %>">Món ngọt</button>
-                                            <button onclick="window.location.href = '<%= path %>?filter=Món nước'" class="<%= filter === 'Món nước' ? 'active' : '' %>">Món nước</button> -->
 
-                                        </ul>
                                         <div class="tab-content" id="myTabContent">
                                             <div class="card-block px-0 py-3">
                                                 <div class="table-responsive">
@@ -85,7 +95,9 @@
                                                                     </tr>
                                                                     <% count++; %>
                                                                 <% } %>
-                                                            <% } %>
+                                                            <% } else { %>
+                                                                <p>Không tìm thấy món ăn!</p>
+                                                            <% } %>	
                                                             
                                                             <!-- <tr class="unread">
                                                                 <td><img class="rounded-circle" style="width:40px;" src="/images/admin/user/avatar-2.jpg" alt="activity-user"></td>

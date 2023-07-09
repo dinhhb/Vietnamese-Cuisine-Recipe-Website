@@ -19,7 +19,8 @@ exports.getDishManagement = (req, res, next) => {
         dishes: dishes,
         hasDishes: dishes.length > 0,
         path: "/admin/dish-management",
-        filter: filter
+        filter: filter,
+        searchTerm: null
       });
     })
     .catch(err => {
@@ -301,16 +302,16 @@ exports.deleteDish = (req, res, next) => {
 exports.searchDishes = (req, res, next) => {
   const filter = req.query.filter || undefined;
   const searchTerm = req.query.search;
-  console.log(searchTerm);
+  // console.log(searchTerm);
   const searchRegex = new RegExp(searchTerm, 'i'); 
   let query = {name: searchRegex};
-  console.log(query);
+  // console.log(query);
 
-  // if (filter && filter !== 'undefined') {
-  //   // console.log(filter);
-  //   query = {type: filter, name: searchRegex};
-  //   console.log(query);
-  // }
+  if (filter && filter !== 'undefined') {
+    // console.log(filter);
+    query = {type: filter, name: searchRegex};
+    // console.log(query);
+  }
 
   Dish.find(query)
     .countDocuments()
@@ -319,13 +320,13 @@ exports.searchDishes = (req, res, next) => {
       return Dish.find(query);
     })
     .then((dishes) => {
-      console.log(dishes);
+      // console.log(dishes);
       res.render("admin/dish-management", {
         pageTitle: "Quản lý món ăn",
         dishes: dishes,
         hasDishes: dishes.length > 0,
         path: "/admin/dish-management-search",
-        // filter: filter,
+        filter: filter,
         searchTerm: searchTerm
       });
     })
