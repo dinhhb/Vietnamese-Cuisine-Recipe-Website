@@ -1,33 +1,32 @@
-const { body, validationResult } = require('express-validator');
-
-const filterIngredientsAndSteps  = require("../middleware/filterIngredientsAndSteps");
+const { body, validationResult } = require("express-validator");
 
 const Dish = require("../models/dish");
 
-exports.getDishManagement = (req, res, next) => {
+exports.getDishManagement = async (req, res, next) => {
   const filter = req.query.filter || undefined;
   let query = {};
 
-  if (filter && filter !== 'undefined') {
+  if (filter && filter !== "undefined") {
     // console.log(filter);
-    query = {type: filter};
+    query = { type: filter };
   }
-  Dish.find(query)
-    .then((dishes) => {
-      res.render("admin/dish-management", {
-        pageTitle: "Quản lý món ăn",
-        dishes: dishes,
-        hasDishes: dishes.length > 0,
-        path: "/admin/dish-management",
-        filter: filter,
-        searchTerm: null
-      });
-    })
-    .catch(err => {
-      const error = new Error(err);
-      error.httpStatusCode = 500;
-      return next(error);
+
+  try {
+    const dishes = await Dish.find(query);
+    res.render("admin/dish-management", {
+      pageTitle: "Quản lý món ăn",
+      dishes: dishes,
+      hasDishes: dishes.length > 0,
+      path: "/admin/dish-management",
+      filter: filter,
+      searchTerm: null,
     });
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
 };
 
 exports.getAddDish = (req, res, next) => {
@@ -37,11 +36,11 @@ exports.getAddDish = (req, res, next) => {
     editing: false,
     hasError: false,
     errorMessage: null,
-    validationErrors: []
+    validationErrors: [],
   });
 };
 
-exports.postAddDish = (req, res, next) => {
+exports.postAddDish = async (req, res, next) => {
   const name = req.body.name;
   const image = req.file;
   const type = req.body.type;
@@ -50,30 +49,9 @@ exports.postAddDish = (req, res, next) => {
   const requirement = req.body.requirement;
   // console.log(image);
 
-  filterIngredientsAndSteps;
-
-  // if (!image){
-  //   return res.status(422).render("admin/edit-dish", {
-  //     pageTitle: "Thêm món ăn",
-  //     path: "/admin/add-dish",
-  //     editing: false,
-  //     hasError: true,
-  //     dish: {
-  //       name: name,
-  //       type: type,
-  //       ingredients: ingredients,
-  //       steps: steps,
-  //       requirement: requirement
-  //     },
-  //     errorMessage: 'Hình ảnh có định dạng không hợp lệ.',
-  //     validationErrors: []
-  //   });
-  // };
-
   const errors = validationResult(req);
-  if (!errors.isEmpty()){
-    console.log(errors.array());
-
+  if (!errors.isEmpty()) {
+    // console.log(errors.array());
     return res.status(422).render("admin/edit-dish", {
       pageTitle: "Thêm món ăn",
       path: "/admin/add-dish",
@@ -84,15 +62,14 @@ exports.postAddDish = (req, res, next) => {
         image: image,
         ingredients: ingredients,
         steps: steps,
-        requirement: requirement
+        requirement: requirement,
       },
       errorMessage: errors.array()[0].msg,
-      validationErrors: errors.array()
+      validationErrors: errors.array(),
     });
   }
 
   const imageUrl = image.path;
-
   const dish = new Dish({
     name: name,
     image: imageUrl,
@@ -101,61 +78,58 @@ exports.postAddDish = (req, res, next) => {
     steps: steps,
     requirement: requirement,
   });
-  dish
-    .save()
-    .then((result) => {
-      console.log("Created Dish");
-      res.redirect("/admin/dish-management");
-    })
-    .catch((err) => {
-      // console.log(err);
-      const error = new Error(err);
-      error.httpStatusCode = 500;
-      return next(error);
-    });
+
+  try {
+    const result = await dish.save();
+    console.log("Created Dish");
+    res.redirect("/admin/dish-management");
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
 };
 
-exports.getEditDish = (req, res, next) => {
+exports.getEditDish = async (req, res, next) => {
   const editMode = req.query.edit;
   if (!editMode) {
     return res.redirect("/");
   }
-
   const dishId = req.params.dishId;
-  Dish.findById(dishId)
-    .then((dish) => {
-      if (!dish) {
-        return res.redirect("/");
-      }
-      res.render("admin/edit-dish", {
-        pageTitle: "Sửa món ăn",
-        path: "/admin/edit-dish",
-        editing: editMode,
-        dish: dish,
-        hasError: false, 
-        errorMessage: null
-      });
-    })
-    .catch((err) => {
-      const error = new Error(err);
-      error.httpStatusCode = 500;
-      return next(error);    
+
+  try {
+    const dish = await Dish.findById(dishId);
+    if (!dish) {
+      res.redirect("/");
+    }
+    res.render("admin/edit-dish", {
+      pageTitle: "Sửa món ăn",
+      path: "/admin/edit-dish",
+      editing: editMode,
+      dish: dish,
+      hasError: false,
+      errorMessage: null,
     });
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
 };
 
-exports.postEditDish = (req, res, next) => {
+exports.postEditDish = async (req, res, next) => {
   const dishId = req.body.dishId;
   const updatedName = req.body.name;
-  const updatedImage = req.file; 
+  const updatedImage = req.file;
   const updatedType = req.body.type;
   let updatedIngredients = req.body.ingredients || [];
   let updatedSteps = req.body.steps || [];
   const updatedRequirement = req.body.requirement;
 
-  filterIngredientsAndSteps;
-
   const errors = validationResult(req);
-  if (!errors.isEmpty()){
+  if (!errors.isEmpty()) {
     return res.status(422).render("admin/edit-dish", {
       pageTitle: "Sửa món ăn",
       path: "/admin/edit-dish",
@@ -167,172 +141,165 @@ exports.postEditDish = (req, res, next) => {
         ingredients: updatedIngredients,
         steps: updatedSteps,
         requirement: updatedRequirement,
-        _id: dishId
+        _id: dishId,
       },
       errorMessage: errors.array()[0].msg,
-      validationErrors: errors.array()
+      validationErrors: errors.array(),
     });
   }
 
-  Dish.findById(dishId)
-    .then((dish) => {
-      dish.name = updatedName;
-      if (updatedImage) {
-        dish.image = updatedImage.path;
+  try {
+    const dish = await Dish.findById(dishId);
+    dish.name = updatedName;
+    if (updatedImage) {
+      dish.image = updatedImage.path;
+    }
+    dish.type = updatedType;
+    dish.ingredients = updatedIngredients;
+    dish.steps = updatedSteps;
+    dish.requirement = updatedRequirement;
 
-      }
-      dish.type = updatedType;
-      dish.ingredients = updatedIngredients;
-      dish.steps = updatedSteps;
-      dish.requirement = updatedRequirement;
-      return dish.save();
-    })
-    .then((result) => {
-      console.log("UPDATED DISH");
-      res.redirect("/admin/dish-management");
-    })
-    .catch((err) => {
-      const error = new Error(err);
-      error.httpStatusCode = 500;
-      return next(error);    
-    });
+    const result = await dish.save();
+    console.log("UPDATED DISH");
+    res.redirect("/admin/dish-management");
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
 };
 
-exports.getStatistic = (req, res, next) => {
+exports.getStatistic = async (req, res, next) => {
   let dishData;
   let ingredientData;
-  let dishCount;
   let ingredientCount;
 
-  Dish.aggregate([
-    {
-      $group: {
-        _id: "$type",
-        count: { $sum: 1 }
-      }
-    }
-  ])
-    .then(results => {
-      dishData = results.map(result => ({
+  try {
+    // Nhóm dữ liệu từ collection Dish theo trường $type
+    const results = await Dish.aggregate([
+      {
+        $group: {
+          _id: "$type",
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+    // console.log(results);
+
+    // Chuyển đổi từ results thành dishData để hiển thị dữ liệu trên giao diện người dùng
+    dishData = results.map((result) => ({
+      value: result.count,
+      label: result._id,
+    }));
+    // console.log(dishData);
+
+    // Nhóm dữ liệu theo trường ingredient và tính tổng số lượng mỗi thành phần
+    const results1 = await Dish.aggregate([
+      {
+        $unwind: "$ingredients",
+      },
+      {
+        $group: {
+          _id: "$ingredients",
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+
+    ingredientData = results1
+      .filter((result) => result.count > 2)
+      .map((result) => ({
         value: result.count,
-        label: result._id
+        label: result._id,
       }));
 
-      return Dish.aggregate([
-        {
-          $unwind: "$ingredients"
+    const dishCount = await Dish.countDocuments();
+
+    // Tính tổng số nguyên liệu
+    const results2 = await Dish.aggregate([
+      {
+        $project: {
+          ingredientCount: { $size: "$ingredients" },
         },
-        {
-          $group: {
-            _id: "$ingredients",
-            count: { $sum: 1 }
-          }
-        }
-      ]);
-    })
-    .then(results => {
-      ingredientData = results
-        .filter(result => result.count > 2)
-        .map(result => ({
-          value: result.count,
-          label: result._id
-        }));
-
-      return Dish.countDocuments();
-    })
-    .then(count => {
-      dishCount = count;
-
-      return Dish.aggregate([
-        {
-          $project: {
-            ingredientCount: { $size: "$ingredients" }
-          }
+      },
+      {
+        $group: {
+          _id: null,
+          count: { $sum: "$ingredientCount" },
         },
-        {
-          $group: {
-            _id: null,
-            count: { $sum: "$ingredientCount" }
-          }
-        }
-      ]);
-    })
-    .then(results => {
-      if (results.length > 0) {
-        ingredientCount = results[0].count;
-      } else {
-        ingredientCount = 0;
-      }
+      },
+    ]);
 
-      res.render("admin/statistic", {
-        pageTitle: "Xem thống kê",
-        path: "/admin/statistic",
-        dishData: JSON.stringify(dishData),
-        ingredientData: JSON.stringify(ingredientData),
-        dishCount: dishCount,
-        ingredientCount: ingredientCount
-      });
-    })
-    .catch(err => {
-      const error = new Error(err);
-      error.httpStatusCode = 500;
-      return next(error);
+    if (results2.length > 0) {
+      ingredientCount = results2[0].count;
+    } else {
+      ingredientCount = 0;
+    }
+
+    res.render("admin/statistic", {
+      pageTitle: "Xem thống kê",
+      path: "/admin/statistic",
+      dishData: JSON.stringify(dishData),
+      ingredientData: JSON.stringify(ingredientData),
+      dishCount: dishCount,
+      ingredientCount: ingredientCount,
     });
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
 };
 
-
-
-
-exports.deleteDish = (req, res, next) => {
+exports.deleteDish = async (req, res, next) => {
   const dishId = req.params.dishId;
-  Dish.findByIdAndRemove(dishId)
-    .then(() => {
-      // Xóa dishId khỏi cookie
-      let favoriteDishIds = req.cookies.favoriteDish || [];
-      favoriteDishIds = favoriteDishIds.filter((id) => id !== dishId);
-      res.cookie("favoriteDish", favoriteDishIds);
-      console.log("DELETED DISH");
-      res.status(200).json({message: "Success"});
-    })
-    .catch((err) => {
-      res.status(500).json({message: "Failed"});  
-    });
+
+  try {
+    const dish = await Dish.findByIdAndRemove(dishId);
+    // Xóa dishId khỏi cookie
+    let favoriteDishIds = req.cookies.favoriteDish || [];
+    favoriteDishIds = favoriteDishIds.filter((id) => id !== dishId);
+    res.cookie("favoriteDish", favoriteDishIds);
+    console.log("DELETED DISH");
+    res.status(200).json({ message: "Success" });
+  } catch (err) {
+    res.status(500).json({ message: "Failed" });
+  }
 };
 
-exports.searchDishes = (req, res, next) => {
+exports.searchDishes = async (req, res, next) => {
   const filter = req.query.filter || undefined;
   const searchTerm = req.query.search;
   // console.log(searchTerm);
-  const searchRegex = new RegExp(searchTerm, 'i'); 
-  let query = {name: searchRegex};
+  const searchRegex = new RegExp(searchTerm, "i");
+  let query = { name: searchRegex };
   // console.log(query);
 
-  if (filter && filter !== 'undefined') {
+  if (filter && filter !== "undefined") {
     // console.log(filter);
-    query = {type: filter, name: searchRegex};
+    query = { type: filter, name: searchRegex };
     // console.log(query);
   }
 
-  Dish.find(query)
-    .countDocuments()
-    .then((numDishes) => {
-      totalDishes = numDishes;
-      return Dish.find(query);
-    })
-    .then((dishes) => {
-      // console.log(dishes);
-      res.render("admin/dish-management", {
-        pageTitle: "Quản lý món ăn",
-        dishes: dishes,
-        hasDishes: dishes.length > 0,
-        path: "/admin/dish-management-search",
-        filter: filter,
-        searchTerm: searchTerm
-      });
-    })
-    .catch((err) => {
-      const error = new Error(err);
-      error.httpStatusCode = 500;
-      return next(error);
+  try {
+    // const totalDishes = await Dish.find(query).countDocuments();
+    const dishes = await Dish.find(query);
+
+    // console.log(dishes);
+    res.render("admin/dish-management", {
+      pageTitle: "Quản lý món ăn",
+      dishes: dishes,
+      hasDishes: dishes.length > 0,
+      path: "/admin/dish-management-search",
+      filter: filter,
+      searchTerm: searchTerm,
     });
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
 };

@@ -72,6 +72,7 @@
                                                 <div class="table-responsive">
                                                     <table class="table table-hover">
                                                         <tbody>
+                                                            <p>Tìm thấy <%= dishes.length %> kết quả phù hợp</p>
                                                             <% if (dishes.length > 0) { %>
                                                                 <% let count = 1; %>
                                                                 <% for (let dish of dishes) { %>
@@ -95,9 +96,8 @@
                                                                     </tr>
                                                                     <% count++; %>
                                                                 <% } %>
-                                                            <% } else { %>
-                                                                <p>Không tìm thấy món ăn!</p>
-                                                            <% } %>	
+                                                            <% } %>
+                                                        
                                                             
                                                             <!-- <tr class="unread">
                                                                 <td><img class="rounded-circle" style="width:40px;" src="/images/admin/user/avatar-2.jpg" alt="activity-user"></td>
