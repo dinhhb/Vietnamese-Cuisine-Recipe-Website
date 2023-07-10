@@ -58,7 +58,7 @@ mongoose
     "mongodb+srv://ty:Dinh2612@cluster0.zx3iodw.mongodb.net/test?retryWrites=true&w=majority"
   )
   .then((result) => {
-    app.listen(3000);
+    app.listen(3001);
   })
   .catch((err) => {
     console.log(err);
