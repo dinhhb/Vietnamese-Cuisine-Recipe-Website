@@ -1,28 +1,29 @@
 "use strict";
 $(document).ready(function () {
   setTimeout(function () {
-    // console.log(document.getElementById("dishData").value);
     var dishData = JSON.parse(
       decodeURIComponent(document.getElementById("dishData").value)
     );
-    // console.log(dishData);
 
-    // [ Donut-chart ] Start
     Morris.Donut({
       element: "dish-donut-chart",
       data: dishData,
-      colors: ["#1de9b6", "#A389D4", "#04a9f5"],
+      colors: function () {
+        var chartColors = [];
+        for (var i = 0; i < dishData.length; i++) {
+          chartColors.push(getRandomColor());
+        }
+        return chartColors;
+      }(),
       resize: true,
       formatter: function (x) {
-        return "Số lượng : " + x;
+        return "Số lượng: " + x;
       },
     });
 
-    // console.log(document.getElementById("ingredientData").value);
     var ingredientData = JSON.parse(
       decodeURIComponent(document.getElementById("ingredientData").value)
     );
-    // console.log(ingredientData);
 
     function getRandomColor() {
       var letters = "0123456789ABCDEF";
@@ -43,10 +44,8 @@ $(document).ready(function () {
       colors: chartColors,
       resize: true,
       formatter: function (x) {
-        return "Số lượng : " + x;
+        return "Số lượng: " + x;
       },
     });
-
-    // [ Donut-chart ] end
   }, 700);
 });
