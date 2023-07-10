@@ -4,22 +4,22 @@
             <div class="button-group filter-button-group">
                 <% if (searchTerm !== null) { %>
                     <button onclick="window.location.href = '<%= `${path}?search=${searchTerm}` %>'" class="<%= filter === 'undefined' || filter === undefined  ? 'active' : '' %>">Tất cả</button>
-                    <button onclick="window.location.href = '<%= `${path}?search=${searchTerm}&filter=Rau củ quả` %>'" class="<%= filter === 'Rau, củ, quả' ? 'active' : '' %>">Rau, củ, quả</button>
+                    <button onclick="window.location.href = '<%= `${path}?search=${searchTerm}&filter=Rau củ quả` %>'" class="<%= filter === 'Rau củ quả' ? 'active' : '' %>">Rau, củ, quả</button>
                     <button onclick="window.location.href = '<%= `${path}?search=${searchTerm}&filter=Thuỷ sản` %>'" class="<%= filter === 'Thuỷ sản' ? 'active' : '' %>">Thuỷ sản</button>
                     <button onclick="window.location.href = '<%= `${path}?search=${searchTerm}&filter=Gia súc` %>'" class="<%= filter === 'Gia súc' ? 'active' : '' %>">Gia súc</button><br>
                     <button onclick="window.location.href = '<%= `${path}?search=${searchTerm}&filter=Gia cầm` %>'" class="<%= filter === 'Gia cầm' ? 'active' : '' %>">Gia cầm</button>
                     <button onclick="window.location.href = '<%= `${path}?search=${searchTerm}&filter=Lương thực` %>'" class="<%= filter === 'Lương thực' ? 'active' : '' %>">Lương thực</button>
-                    <button onclick="window.location.href = '<%= `${path}?search=${searchTerm}&filter=Bánh kẹo mứt` %>'" class="<%= filter === 'Bánh, kẹo, mứt' ? 'active' : '' %>">Bánh, kẹo, mứt</button>
+                    <button onclick="window.location.href = '<%= `${path}?search=${searchTerm}&filter=Bánh kẹo mứt` %>'" class="<%= filter === 'Bánh kẹo mứt' ? 'active' : '' %>">Bánh, kẹo, mứt</button>
                     <button onclick="window.location.href = '<%= `${path}?search=${searchTerm}&filter=Giải khát` %>'" class="<%= filter === 'Giải khát' ? 'active' : '' %>">Giải khát</button>
 
                 <% } else { %>    
                     <button onclick="window.location.href = '<%= path %>'" class="<%= filter === 'undefined' || filter === undefined  ? 'active' : '' %>">Tất cả</button>
-                    <button onclick="window.location.href = '<%= path %>?filter=Rau củ quả'" class="<%= filter === 'Rau, củ, quả' ? 'active' : '' %>">Rau, củ, quả</button>
+                    <button onclick="window.location.href = '<%= path %>?filter=Rau củ quả'" class="<%= filter === 'Rau củ quả' ? 'active' : '' %>">Rau, củ, quả</button>
                     <button onclick="window.location.href = '<%= path %>?filter=Thuỷ sản'" class="<%= filter === 'Thuỷ sản' ? 'active' : '' %>">Thuỷ sản</button>
                     <button onclick="window.location.href = '<%= path %>?filter=Gia súc'" class="<%= filter === 'Gia súc' ? 'active' : '' %>">Gia súc</button><br>
                     <button onclick="window.location.href = '<%= path %>?filter=Gia cầm'" class="<%= filter === 'Gia cầm' ? 'active' : '' %>">Gia cầm</button>
                     <button onclick="window.location.href = '<%= path %>?filter=Lương thực'" class="<%= filter === 'Lương thực' ? 'active' : '' %>">Lương thực</button>
-                    <button onclick="window.location.href = '<%= path %>?filter=Bánh kẹo mứt'" class="<%= filter === 'Bánh, kẹo, mứt' ? 'active' : '' %>">Bánh, kẹo, mứt</button>
+                    <button onclick="window.location.href = '<%= path %>?filter=Bánh kẹo mứt'" class="<%= filter === 'Bánh kẹo mứt' ? 'active' : '' %>">Bánh, kẹo, mứt</button>
                     <button onclick="window.location.href = '<%= path %>?filter=Giải khát'" class="<%= filter === 'Giải khát' ? 'active' : '' %>">Giải khát</button>
                     <!--  -->
                     <!-- <button data-filter=".dinner">Món tráng miệng</button> -->

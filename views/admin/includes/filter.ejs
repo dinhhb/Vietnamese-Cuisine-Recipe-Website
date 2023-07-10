@@ -7,7 +7,7 @@
                 aria-selected="true">Tất cả</button>
         </li>
         <li class="nav-item">
-            <button class="nav-link <%= filter === 'Rau, củ, quả' ? 'active' : '' %>" id="profile-tab"
+            <button class="nav-link <%= filter === 'Rau củ quả' ? 'active' : '' %>" id="profile-tab"
                 onclick="window.location.href = '<%= `${path}?search=${searchTerm}&filter=Rau củ quả` %>'" role="tab"
                 aria-controls="profile" aria-selected="false">Rau, củ, quả</button>
         </li>
@@ -32,7 +32,7 @@
                 aria-controls="contact" aria-selected="false">Lương thực</button>
         </li>
         <li class="nav-item">
-            <button class="nav-link <%= filter === 'Bánh, kẹo, mứt' ? 'active' : '' %>" id="contact-tab"
+            <button class="nav-link <%= filter === 'Bánh kẹo mứt' ? 'active' : '' %>" id="contact-tab"
                 onclick="window.location.href = '<%= `${path}?search=${searchTerm}&filter=Bánh kẹo mứt` %>'" role="tab"
                 aria-controls="contact" aria-selected="false">Bánh, kẹo, mứt</button>
         </li>
@@ -49,7 +49,7 @@
                     aria-selected="true">Tất cả</button>
             </li>
             <li class="nav-item">
-                <button class="nav-link <%= filter === 'Rau, củ, quả' ? 'active' : '' %>" id="profile-tab"
+                <button class="nav-link <%= filter === 'Rau củ quả' ? 'active' : '' %>" id="profile-tab"
                     onclick="window.location.href='<%= path %>?filter=Rau củ quả'" role="tab" aria-controls="profile"
                     aria-selected="false">Rau, củ, quả</button>
             </li>
@@ -74,7 +74,7 @@
                     aria-controls="contact" aria-selected="false">Lương thực</button>
             </li>
             <li class="nav-item">
-                <button class="nav-link <%= filter === 'Bánh, kẹo, mứt' ? 'active' : '' %>" id="contact-tab"
+                <button class="nav-link <%= filter === 'Bánh kẹo mứt' ? 'active' : '' %>" id="contact-tab"
                     onclick="window.location.href = '<%= `${path}?search=${searchTerm}&filter=Bánh kẹo mứt` %>'" role="tab"
                     aria-controls="contact" aria-selected="false">Bánh, kẹo, mứt</button>
             </li>
