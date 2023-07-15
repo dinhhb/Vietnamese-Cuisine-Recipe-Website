@@ -1,15 +1,14 @@
 {
-  "name": "nodejs-complete-guide",
+  "name": "am-thuc-viet",
   "version": "1.0.0",
-  "description": "Complete Node.js Guide",
+  "description": "Website chia sẻ công thức nấu ăn",
   "main": "app.js",
   "scripts": {
-    "preinstall": "npm i nodemon -g",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js",
     "start-server": "node app.js"
   },
-  "author": "Maximilian Schwarzmüller",
+  "author": "abc",
   "license": "ISC",
   "devDependencies": {
     "eslint-plugin-react-hooks": "^4.6.0",
