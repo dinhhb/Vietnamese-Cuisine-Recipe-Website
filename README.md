@@ -73,8 +73,8 @@ This project includes Docker support. To run the application using Docker, follo
 -   npm: Package manager for managing project dependencies.
 ## Contributing
 
-Contributions are welcome! If you have suggestions for improvements or encounter any issues, please [open an issue](https://chat.openai.com/link-to-issue) or submit a pull request.
+Contributions are welcome! If you have suggestions for improvements or encounter any issues, please [open an issue](https://github.com/dinhhb/project2/issues) or submit a pull request.
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](https://chat.openai.com/LICENSE) file for details.
+This project is licensed under the MIT License. 
