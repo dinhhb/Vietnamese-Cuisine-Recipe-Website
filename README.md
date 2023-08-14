@@ -2,7 +2,7 @@
 
 This project is a web application built using Express.js, MongoDB with Mongoose, Docker for containerization, npm for package management, and EJS (Embedded JavaScript) for dynamic views. The goal of this project is to provide a platform where users can explore and discover various traditional Vietnamese cuisine recipes.
 
-![Vietnamese Cuisine Recipes](https://ibb.co/5xzKPfS)
+![Vietnamese Cuisine Recipes](/public/images/menu.png)
 
 ## Table of Contents
 
@@ -76,5 +76,5 @@ This project includes Docker support. To run the application using Docker, follo
 Contributions are welcome! If you have suggestions for improvements or encounter any issues, please [open an issue](https://github.com/dinhhb/project2/issues) or submit a pull request.
 
 ## License
-
+The recipe is taken from "555 món ăn Việt Nam" of publisher Thống Kê.
 This project is licensed under the MIT License. 
